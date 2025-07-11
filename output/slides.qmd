@@ -1,406 +1,478 @@
 ---
 title: "Identifying Correct or Incorrect Emotion Recognition from Facial Expression Time Series using R"
-author: "Your Name"
-date: "today"
+author: "Damien Dupré"
 format: 
   revealjs:
-    # theme: [default, styles.css]
+    theme: [theme/metropolis.scss]
     slide-number: true
-    chalkboard: true
-    logo: "logo.png"
+    logo: "img/logo.jpg"
+
+execute: 
+  echo: true
+  warning: false
+  
+title-slide-attributes:
+    data-background-iframe: grid-worms/index.html
+preload-iframes: true
 ---
 
-```{r setup, include=FALSE}
-# This chunk is for setup, it won't be shown in the presentation
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
-# Load necessary libraries (assuming they are installed)
-# install.packages(c("tidyverse", "tsfeatures", "caret", "randomForest", "ggplot2"))
+```{r}
+#| label: setup
+#| include: false
+
+# libraries --------------------------------------------------------------------
+library(knitr)
+library(countdown)
+library(fontawesome)
+```
+
+## Introduction
+
+Facial Expression Recognition has advanced significantly with the **emergence of automatic emotion recognition systems**.
+
+However, the outputs of these systems can be difficult to handle:
+
+- The sheer volume of data from **high-frequency time recordings**,
+- The presence of **autocorrelation** over time,
+- The inclusion of **multiple variables**.
+
+In this workshop, we will explore how to process and analyse such data using R.
+
+## Case study
+
+- **78 participants** (20 male, 58 female) have been recorded while they watched **six videos/tasks** designed to elicit specific emotions.
+
+- A total of 467 video recordings were obtained (one participant completed only five videos) and analysed using **Affectiva’s Affedex** Emotion Recognition system integrated within the iMotions Lab software.
+
+- Each video frame was scored for the **likelihood of expressing** the following emotions: Happiness, Surprise, Disgust, Fear, Sadness, and Anger, with values ranging from 0 (not recognised) to 1 (fully recognised).
+
+:::{.center}
+**Did the participants express the emotion intended by the elicitation tasks?**
+:::
+
+## Objectives
+
+![](https://tidyverse.tidyverse.org/articles/data-science.png)
+
+1. Import, Tidy and Transform
+2. Visualise
+3. Model
+4. Communicate
+
+# Technological Choices
+
+## R not Python
+
+There is little difference between R and Python for research purposes, but **R is, in my view, easier to read and write**.
+
+This workshop assumes some familiarity with R, particularly:
+
+- The **“tidyverse”** coding style
+- Use of the **native pipe** operator `|>` rather than the `%>%` pipe from the {magrittr} package
+
+::: {.callout-note}
+The pipe operator applies the object on the left-hand side to the first argument of the function on the right-hand side.
+
+So instead of writing `f(arg1 = x, arg2 = y)`, you write `x |> f(arg2 = y)`.
+:::
+
+## Using RStudio in Posit Cloud
+
+Although you may use your own R installation, there are excellent and **free cloud-based options**:
+
+- Google Colab with Jupyter Notebook
+- GitHub Codespaces with Visual Studio Code
+- Posit Cloud with RStudio
+
+::: {.callout-warning}
+The free tier on Posit Cloud provides only 25 hours of usage per month.
+:::
+
+## 🛠️ Now, it’s Your Turn!
+
+1.	In your browser, sign up or log in at <https://posit.cloud>
+2.	Click on **New Project** and choose **New Project from Git Repository**
+3.	Enter https://github.com/damien-dupre/cere2025_workshop when prompted for the repository URL
+
+```{r}
+#| echo: false
+
+countdown(minutes = 2, warn_when = 60)
+```
+
+## Ressources
+
+- All 467 csv files are in the data folder
+- All R scripts used are in the scripts folder
+- Slides and supplementary material are in the output folder
+
+[]{.underline}
+
+    cere2025_workshop/
+    ├── data/
+    │   ├── F001_Angry.csv
+    │   ├── F001_Disgust.csv
+    │   └── ...
+    ├── scripts/
+    │   └── data_processing.R
+    └── output/
+        ├── slides.html
+        ├── slides.qmd
+        └── slides_files/
+        
+# 1. Import, Tidy and Transform
+
+## Import
+
+Start by installing and loading the necessary packages:
+
+```{r}
+# Install Packages (to run only once) ------------------------------------------
+# install.packages("tidyverse")
+# install.packages("fs")
+# install.packages("here")
+# install.packages("report")
+
+# Load Packages ----------------------------------------------------------------
 library(tidyverse)
-library(tsfeatures)
-library(caret)
-library(randomForest)
-library(ggplot2)
+library(fs)
+library(here)
+library(report)
 ```
 
-## Introduction {data-background-color="#4A6E8A"}
+We will combine all csv files into a single table:
 
-<p class="r-fit-text">The Challenge of Understanding Dynamic Emotions</p>
+```{r}
+df <- 
+  dir_ls(path = here("data"), glob = "*.csv") |> # list all csv files in folder "data"
+  map_dfr(read_csv, .id = "source") # read the files and merge them one after the other
 
-::: footer
-**Speaker Notes (5 mins):** Welcome everyone. Today, we're diving into a fascinating challenge in affective computing: how can we trust the emotion labels our models generate? We'll explore how to use the time series data of facial expressions to determine if an AI's emotion recognition is on track or not. The core idea is that the way an expression unfolds over time holds vital clues about its authenticity and clarity.
-:::
-
----
-
-## The Problem: Not All Predictions Are Equal
-
-- **Automatic Emotion Recognition is Powerful:** Used in HCI, mental health, market research.
-- **But it's not perfect:** Models can misinterpret subtle, mixed, or insincere emotions.
-
-<p>&nbsp;</p>
-
-> **Our Goal:** Can we build a model to predict if a primary emotion classification is **Correct** or **Incorrect**, based on the *dynamics* of the facial expression?
-
-::: footer
-**Speaker Notes:** We've seen massive progress in automatically detecting emotions from faces. Systems like OpenFace or Affectiva can analyze a video and tell you if a person is happy, sad, or surprised. But we've all made a polite, fake smile. A computer might label that "Happy." Is that label truly correct in its context? This is the problem we're tackling. We're essentially building a "confidence" model that sits on top of a primary emotion classifier.
-:::
-
----
-
-## Background & Concepts {data-background-color="#2C3E50"}
-
-<p class="r-fit-text">Deconstructing the Face: From AUs to Time Series</p>
-
-::: footer
-**Speaker Notes (10 mins):** Before we get to the "how," let's cover two fundamental concepts. First, how do we digitally represent a facial expression? And second, how does this become a time series that we can analyze?
-:::
-
----
-
-## Facial Action Coding System (FACS)
-
-- A comprehensive, anatomical system to describe all visually discernible facial movements.
-- Expressions are broken down into **Action Units (AUs)**.
-- **Example:** A genuine smile (Duchenne Smile) involves:
-  - **AU6 (Cheek Raiser):** Raises cheeks, creating "crow's feet."
-  - **AU12 (Lip Corner Puller):** Pulls the lip corners up and out.
-
-![An example of Action Units from FACS.](https://i.imgur.com/8i2N6ah.png)
-
-::: footer
-**Speaker Notes:** The foundation of modern facial analysis is the Facial Action Coding System, or FACS. Instead of looking at a holistic emotion like "happy," FACS breaks it down into muscle movements. For instance, a smile isn't just one thing; it's a combination of specific actions. Software can automatically detect the presence and intensity of these AUs from a video feed, frame by frame.
-:::
-
----
-
-## The Facial Expression Time Series
-
-When we track AU intensities over time, we get a **multivariate time series**.
-
-```{r fake_data_plot, echo=FALSE, fig.align='center', out.width='80%'}
-# Generate synthetic data for illustration
-set.seed(42)
-time <- 1:50
-au6 <- 0.5 * sin(time/5) + rnorm(50, 0.1, 0.1) + time/50
-au12 <- 0.8 * sin(time/5 + 0.5) + rnorm(50, 0.1, 0.1) + time/50
-au1 <- pmax(0, cumsum(rnorm(50, 0, 0.2)))[1:50] * 0.1 # Noise AU
-
-ts_data <- tibble(Time = time, `AU6 (Cheek Raiser)` = au6, `AU12 (Lip Corner Puller)` = au12, `AU1 (Inner Brow Raiser)` = au1) %>%
-  pivot_longer(-Time, names_to = "Action_Unit", values_to = "Intensity")
-
-ggplot(ts_data, aes(x = Time, y = Intensity, color = Action_Unit, group = Action_Unit)) +
-  geom_line(linewidth = 1.2) +
-  labs(title = "Example: AU Intensities During a 'Happy' Expression",
-       x = "Time (Frames)",
-       y = "AU Intensity") +
-  theme_minimal(base_size = 16) +
-  theme(legend.position = "bottom")
+# write_csv(df, "data_all.csv")
 ```
 
-::: footer
-**Speaker Notes:** Here's what that data looks like. On the x-axis, we have time, perhaps in video frames. On the y-axis, we have the intensity of different Action Units. A "happy" expression might show a rising intensity in AU6 and AU12. The key insight is that the *shape* of these curves matters. Is the onset smooth or jerky? Are the AUs synchronized? These are the dynamic features we want to capture.
-:::
+## Import
 
----
+Preview the df object:
 
-## Methodology {data-background-color="#4A6E8A"}
-
-<p class="r-fit-text">Using R to Classify Correctness</p>
-
-::: footer
-**Speaker Notes (20 mins):** Now for the core of our work. Our methodology is a two-step process. First, we'll extract meaningful statistical features from these AU time series. Second, we'll use those features to train a machine learning model. And we'll do it all in R.
-:::
-
----
-
-## The R Toolkit
-
-We'll rely on a few key packages from the R ecosystem:
-
-- **`tidyverse`**: The foundation for all our data manipulation and plotting needs.
-- **`tsfeatures`**: A brilliant package for extracting a wide array of time series characteristics automatically.
-- **`caret`**: A unified interface for training and evaluating machine learning models.
-
-```r
-# Our core libraries
-library(tidyverse)
-library(tsfeatures)
-library(caret)
+```{r}
+head(df, 10)
 ```
 
-::: footer
-**Speaker Notes:** These three packages form our analytical toolkit. `tidyverse` is our bread and butter for data wrangling. `tsfeatures` is the star of the show for feature engineering—it's incredibly powerful. And `caret` provides a streamlined workflow for the machine learning part.
-:::
+## Tidy and Transform
 
----
+We will update the source variable to retain only the file name:
 
-## Step 1: Feature Engineering with `tsfeatures`
-
-Instead of using raw AU data, we compute descriptive features of the time series window.
-
-| Feature Name    | Description                                       | Why It Matters for Emotions?                            |
-|-----------------|---------------------------------------------------|---------------------------------------------------------|
-| `trend`         | The slope of a linear fit to the series.          | Was the expression intensifying or fading?              |
-| `entropy`       | A measure of the series' predictability.          | A noisy, erratic expression (high entropy) may be fake. |
-| `lumpiness`     | Variance of variances of chunked series.          | Measures burstiness. Surprise is lumpy; sadness is not. |
-| `stability`     | Variance of means of chunked series.              | Is the expression held steady or is it fluctuating?     |
-
-::: footer
-**Speaker Notes:** This is the most important slide in this section. We don't feed the raw time series into our model. Instead, we use `tsfeatures` to describe its characteristics. For example, 'trend' tells us if an expression is growing stronger. 'Entropy' can capture erratic, uncertain facial movements. 'Lumpiness' is perfect for detecting rapid-onset emotions like surprise, while 'stability' might capture a held, deliberate expression.
-:::
-
----
-
-### Applying `tsfeatures` in R
-
-Assume we have a data frame `au_data_windows` with an `id` for each expression window, `time`, `au_name`, and `intensity`.
-
-```r
-# Fictional data structure
-# id | time | au_name | intensity | primary_emotion | is_correct
-# 1  | 1    | AU06_r  | 0.1       | Happy           | 1
-# 1  | 2    | AU06_r  | 0.2       | Happy           | 1
-# ...
-
-# We would first pivot to a wide format for tsfeatures
-# id | time | AU06_r | AU12_r | ...
-
-# Then apply the feature extraction
-# (Conceptual code)
-ts_features <- au_data_windows %>%
-  group_by(id, primary_emotion, is_correct) %>%
-  summarise(
-    features = list(tsfeatures(., lag=1)) # tsfeatures on all AU columns
-  ) %>%
-  unnest(features)
+```{r}
+df_tidy <- df |> 
+  mutate(file = source |> path_file() |> path_ext_remove(), .keep	= "unused") |> 
+  separate(col = file, into = c("ppt", "elicitation"), sep = "_", remove = FALSE) |> 
+  mutate(elicitation = elicitation |> tolower() |> str_replace("happy", "happiness"))
 ```
 
-::: footer
-**Speaker Notes:** Here's how we'd implement this in R. The key is to have your data organized by expression instance. For each instance, `tsfeatures` can compute dozens of features for each AU column. The result is a "wide" data frame where each row is one emotional expression, and the columns are the statistical features we can use for modeling.
-:::
+Importantly, we need to transform this wide dataframe (i.e., all emotion variables are side by side) to a long dataframe (i.e., all emotion variables are below each others and only one "value" variable is used):
 
----
-
-### Feature Distribution: Correct vs. Incorrect
-
-Let's hypothesize what we might see.
-
-```{r fake_feature_plot, echo=FALSE, fig.align='center', out.width='70%'}
-# Generate synthetic feature data for illustration
-set.seed(123)
-feature_data <- tibble(
-  entropy = c(rnorm(100, 0.4, 0.1), rnorm(100, 0.7, 0.15)),
-  lumpiness = c(rnorm(100, 0.8, 0.1), rnorm(100, 0.3, 0.1)),
-  Classification = rep(c("Correct 'Happy'", "Incorrect 'Happy'"), each = 100)
-)
-
-ggplot(feature_data, aes(x = entropy, fill = Classification)) +
-  geom_density(alpha = 0.7) +
-  labs(title = "Hypothetical Distribution of 'Entropy' for AU12",
-       subtitle = "Correct expressions may be less noisy (lower entropy)",
-       x = "Spectral Entropy", y = "Density") +
-  theme_minimal(base_size = 16)
+```{r}
+df_tidy_long <- df_tidy |> 
+  pivot_longer(
+    cols = c(anger, disgust, fear, happiness, sadness, surprise),
+    names_to = "emotion",
+    values_to = "recognition"
+  )
 ```
 
-::: footer
-**Speaker Notes:** Before we even build a model, we can explore the features. Here's a hypothetical density plot. We might find that expressions our ground-truth labels as "Correctly Happy" tend to have lower spectral entropy—meaning they are smoother and more predictable—than expressions that were mislabeled as happy. Finding these differences is a great sign that our features have predictive power.
-:::
+## Tidy and Transform
 
----
+Let's have a look at the `df` object again:
 
-## Step 2: Building the Classifier with `caret`
-
-We'll use a **Random Forest** model. It's robust, handles complex interactions, and gives us feature importance.
-
-**The Workflow:**
-
-1.  **Split Data:** Divide our `ts_features` data into training (80%) and testing (20%) sets.
-2.  **Cross-Validation:** Set up 10-fold cross-validation to prevent overfitting.
-3.  **Train:** Train the Random Forest model to predict `is_correct` from the features.
-4.  **Predict & Evaluate:** Use the trained model to make predictions on the unseen test set.
-
-::: footer
-**Speaker Notes:** With our features ready, we move to `caret`. We'll use a Random Forest model. I like it because it's like a committee of decision trees; it's very robust and less prone to overfitting than a single tree. Our process is standard: split the data, set up cross-validation, train the model, and then see how well it performs on data it's never seen before.
-:::
-
----
-
-### `caret` Code Snippet
-
-```r
-# Our target variable 'is_correct' should be a factor
-ts_features$is_correct <- factor(ts_features$is_correct, 
-                                 levels = c(1, 0), 
-                                 labels = c("Correct", "Incorrect"))
-
-# 1. Create data partition
-trainIndex <- createDataPartition(ts_features$is_correct, p = .8, list = FALSE)
-train_data <- ts_features[trainIndex, ]
-test_data  <- ts_features[-trainIndex, ]
-
-# 2. Set up cross-validation
-ctrl <- trainControl(method = "cv", number = 10)
-
-# 3. Train the model
-rf_model <- train(is_correct ~ ., # Predict 'is_correct' using all other features
-                  data = train_data, 
-                  method = "rf", # 'rf' for Random Forest
-                  trControl = ctrl)
+```{r}
+head(df, 10)
 ```
 
-::: footer
-**Speaker Notes:** Here is some example `caret` code. First, we ensure our outcome variable is a factor, which `caret` needs for classification. We use `createDataPartition` for a stratified split, keeping the proportion of "Correct" and "Incorrect" labels the same in both our train and test sets. Finally, the `train` function is where the magic happens. We specify our formula, the data, the method (Random Forest), and our cross-validation plan.
-:::
+## 🛠️ Now, it’s Your Turn!
 
----
+1. Open “import_tidy_transform.R” in the scripts folder
+2. Select all the lines and click on the Run icon or CTRL + ENTER (Windows) / Command + ENTER (Mac)
+3. Observe your `df_tidy_long` object from the Environment pane
 
-## Results & Interpretation {data-background-color="#2C3E50"}
+```{r}
+#| echo: false
 
-<p class="r-fit-text">Did it work? And what did we learn?</p>
-
-::: footer
-**Speaker Notes (15 mins):** Okay, we've built the model. Now for the moment of truth. How well did it perform, and more importantly, what can it tell us about the nature of correct vs. incorrect emotional expressions?
-:::
-
----
-
-## Model Evaluation: The Confusion Matrix
-
-After predicting on the test set, we get a confusion matrix.
-
-```
-# Hypothetical Output
-Confusion Matrix and Statistics
-
-           Reference
-Prediction  Correct Incorrect
-  Correct       85        12
-  Incorrect     15        88
-
-               Accuracy : 0.865            
-                 95% CI : (0.81, 0.91)
-...
-            Precision : 0.876
-               Recall : 0.850         
-           F1-score : 0.863            
+countdown(minutes = 2, warn_when = 60)
 ```
 
-- **Accuracy (86.5%):** Overall, how often is the classifier correct?
-- **Precision (87.6% for 'Incorrect'):** When we predict a label is "Incorrect," how often are we right? (Useful for filtering bad data).
+# 2. Visualise
 
-::: footer
-**Speaker Notes:** The confusion matrix is our primary report card. In this hypothetical result, we achieved 86.5% accuracy, which is quite good. But let's look deeper. Precision for the 'Incorrect' class would be a key metric. A high precision here means that when our model flags a primary classification as wrong, it's very likely right. This is extremely valuable for automatically cleaning up datasets.
-:::
+## Single Recording
 
----
+Let’s visualise a single video:
 
-## Feature Importance
+```{r}
+list_file <- unique(df_tidy_long$file)
 
-A great feature of Random Forest is that it tells us which variables were most useful.
-
-```{r fake_importance_plot, echo=FALSE, fig.align='center', out.width='75%'}
-# Fake importance data
-imp_data <- tibble(
-  Feature = c("AU12_entropy", "AU06_stability", "AU04_trend", "AU01_lumpiness", "AU12_trend"),
-  Importance = c(100, 85, 60, 45, 30)
-) %>%
-  mutate(Feature = fct_reorder(Feature, Importance))
-
-ggplot(imp_data, aes(x = Importance, y = Feature)) +
-  geom_col(fill = "#4A6E8A") +
-  labs(title = "Top 5 Most Important Features",
-       subtitle = "Predicting correctness of a 'Happy' classification",
-       x = "Relative Importance", y = "Time Series Feature") +
-  theme_minimal(base_size = 16)
+df_tidy_long |> 
+  filter(file == list_file[3]) |> 
+  ggplot() +
+  aes(x = frame, y = recognition, colour = emotion) +
+  geom_line(linewidth = 2) +
+  theme_bw() +
+  theme(legend.position = "bottom") +
+  scale_y_continuous(limits = c(0, 1)) +
+  scale_color_brewer(palette = "Dark2")
 ```
 
-**Interpretation:** The predictability (`entropy`) and steadiness (`stability`) of the smile-related AUs are the most powerful predictors.
+## All Recordings
 
-::: footer
-**Speaker Notes:** This is where we get our "Aha!" moment. A variable importance plot shows us which features the model relied on most. In this example, the entropy and stability of the main "smile" muscles (AU6 and AU12) are the most important. This confirms our hypothesis: the *quality* of the movement matters. A smooth, stable smile is more likely to be correctly classified as "happy" than a shaky, erratic one.
+Let’s visualise recordings for each elicitation tasks:
+
+```{r}
+list_elicitation <- unique(df_tidy_long$elicitation)
+
+df_tidy_long |> 
+  filter(elicitation == list_elicitation[3]) |> 
+  ggplot() +
+  aes(x = frame, y = recognition, group = ppt, colour = emotion) +
+  geom_line(linewidth = 1) +
+  facet_grid(emotion ~ ., switch = "x") +
+  theme_bw() +
+  theme(legend.position = "bottom") +
+  scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.5, 1)) +
+  scale_color_brewer(palette = "Dark2")
+```
+
+## 🛠️ Now, it’s Your Turn!
+
+1. Open “visualise.R” in the scripts folder
+2. Change the index numbers in the first two lines to explore different data
+3. Select all the lines and click on the Run icon or CTRL + ENTER (Windows) / Command + ENTER (Mac)
+
+```{r}
+#| echo: false
+
+countdown(minutes = 2, warn_when = 60)
+```
+
+# 3. Model
+
+## Model
+
+For each video, we aim to identify the expressed emotion using three distinct methods (as described in Dupré, 2021):
+
+1.	Matching Score: Emotion with the highest single value
+2.	Confidence Score: Emotion with the highest average value
+3.	Frame Score: Emotion most frequently recognised across frames
+
+## Model
+
+Here is a visual representation of each method applied to a special case in which all methods return the same emotion recognised.
+
+![](img/method_comp1.png)
+
+## Model
+
+However, some cases are returning different results:
+
+![](img/method_comp2.png)
+
+![](img/method_comp3.png)
+
+## Disclaimer
+
+These methods all have their pros and cons. For example, Confidence Score and Frame Score might be more robust to artefacts.
+
+Additional calculation methods not presented here might be possible as well.
+
+Finally, the categorisation of a whole video to a single label is a reductive approach that can be debated but it is not the topic of the workshop.
+
+## Matching Score
+
+The emotion recognised is the one having the highest value in the recording
+
+```{r}
+df_score_matching <- df_tidy_long |> 
+  select(file, frame, emotion, recognition) |> 
+  group_by(file) |> 
+  filter(recognition == max(recognition)) |> 
+  add_count() |> 
+  mutate(emotion = case_when(n != 1 ~ "undetermined", .default = emotion)) |> 
+  select(file, emotion) |> 
+  distinct() |> 
+  mutate(score = "matching")
+```
+
+## Confidence Score
+
+The emotion recognised is the one with the highest average along all the recording among the possible emotions
+
+```{r}
+df_score_confidence <- df_tidy_long |> 
+  select(file, frame, emotion, recognition) |> 
+  group_by(file, emotion) |> 
+  summarise(mean_emotion = mean(recognition, na.rm = TRUE)) |> 
+  slice_max(mean_emotion) |> 
+  add_count() |> 
+  mutate(emotion = case_when(n != 1 ~ "undetermined", .default = emotion)) |> 
+  select(file, emotion) |> 
+  distinct() |> 
+  mutate(score = "confidence")
+```
+
+## Frame Score
+
+Identify the emotion recognised in each frame (max value) and to count how many time each have been recognised in a video
+
+```{r}
+df_score_frame <- df_tidy_long |> 
+  select(file, frame, emotion, recognition) |> 
+  group_by(file, frame) |> 
+  slice_max(recognition) |> 
+  add_count(name = "n_frame") |> 
+  mutate(emotion = case_when(n_frame != 1 ~ "undetermined", .default = emotion)) |> 
+  select(file, frame, emotion) |> 
+  distinct() |> 
+  group_by(file, emotion) |> 
+  count() |> 
+  group_by(file) |> 
+  slice_max(n) |> 
+  add_count(name = "n_file") |> 
+  mutate(emotion = case_when(n_file != 1 ~ "undetermined", .default = emotion)) |> 
+  select(file, emotion) |> 
+  distinct() |> 
+  mutate(score = "frame")
+```
+
+## Comparing Scores
+
+Now a label has been assigned to each recorded video using 4 different calculation methods, we can compare these score with the "ground truth" (i.e., the type of emotion supposedly elicited). 
+
+```{r}
+df_congruency <- 
+  bind_rows(
+    df_score_matching, 
+    df_score_confidence,
+    df_score_frame
+  ) |> 
+  separate(col = file, into = c("ppt", "elicitation"), sep = "_", remove = FALSE) |> 
+  mutate(
+    elicitation = elicitation |> tolower() |> 
+      str_replace_all(c("happy" = "happiness", "sad" = "sadness", "angry" = "anger")),
+    congruency = if_else(elicitation == emotion, 1, 0)
+  )
+```
+
+## Comparing Scores
+
+```{r}
+model <- df_congruency |> 
+  glm(
+    congruency ~ score*elicitation, 
+    data = _, 
+    family = binomial
+  ) |> 
+  aov()
+```
+
+# 4. Communicate
+
+## Effects Visualisation
+
+```{r}
+df_congruency |> 
+  group_by(score, elicitation) |> 
+  summarise(mean_se(congruency)) |> 
+  ggplot() + 
+  aes(
+    x = elicitation,
+    y = y,
+    ymin = ymin,
+    ymax = ymax,
+    fill = score,
+    shape = score
+  ) +
+  geom_errorbar(position = position_dodge(width = 0.8)) +
+  geom_point(size = 4, position = position_dodge(width = 0.8))
+```
+
+## Effects Visualisation
+
+```{r}
+df_congruency |> 
+  group_by(score, elicitation) |> 
+  summarise(mean_se(congruency)) |> 
+  ggplot() + 
+  aes(
+    x = fct_reorder(elicitation, y, .fun = "mean"),
+    y = y,
+    ymin = ymin,
+    ymax = ymax,
+    fill = score,
+    shape = score
+  ) +
+  ggstats::geom_stripped_cols() +
+  geom_errorbar(width = 0, position = position_dodge(width = 0.8)) +
+  geom_point(stroke = 0, size = 4, position = position_dodge(width = 0.8)) +
+  scale_y_continuous("Congruence between elicitation and recognition", limits = c(0, 1), labels = scales::percent) +
+  scale_x_discrete("") +
+  scale_fill_brewer("Method", palette = "Dark2") +
+  scale_shape_manual("Method", values = c(21, 22, 23, 24)) +
+  theme_bw() +
+  theme(
+    text = element_text(size = 15),
+    axis.text.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16),
+    axis.line.y = element_blank(),
+    legend.title.align = 0.5,
+    legend.position = c(0.85, 0.2),
+    legend.background = element_rect(fill = "grey80")
+  ) +
+  coord_flip(ylim = c(0, 1)) +
+  guides(
+    shape = guide_legend(reverse = TRUE),
+    fill = guide_legend(reverse = TRUE)
+  )
+```
+
+## Effects Statistics
+
+```{r}
+report(model)
+```
+
+# 5. Discussion and Conclusion
+
+## On Technology
+
+- Tidyverse and the native |> pipe operator make code more readable and teachable
+- Benefits include increased scientific transparency and reproducibility
+- Being open-source encourages improved practices
+
+## On Theory
+
+- We cannot confirm whether the participants felt the emotion elicited, only that it may or may not have been expressed (Tcherkassof and Dupré, 2020)
+- A lack of emotional expression does not necessarily indicate an issue with the participant, it could be due to recognition system limitations
+
+## On Methods
+
+- All three methods compare emotions relative to others. A low score might still be the highest and thus chosen
+- A minimum threshold should be introduced for more valid recognition
+
+- Method performance differs:
+
+  - Matching Score struggles with prolonged emotions like happiness and disgust
+	- Frame Score underperforms for surprise, sadness, anger, and fear
+	- Confidence Score, based on average values, appears the most robust overall
+	
+## {background="#43464B"}
+
+```{css, echo = FALSE}
+img.circle {border-radius:50%;}
+```
+
+::: {layout-ncol="2"}
+<img class="circle" src="https://github.com/damien-dupre.png" />
+
+**Thanks for your attention and don't hesitate to ask if you have any questions!**  
+[`r fa(name = "mastodon")` @damien_dupre](https://datasci.social/@damien_dupre)  
+[`r fa(name = "github")` @damien-dupre](https://github.com/damien-dupre)  
+[`r fa(name = "link")` https://damien-dupre.github.io](https://damien-dupre.github.io)  
+[`r fa(name = "paper-plane")` damien.dupre@dcu.ie](mailto:damien.dupre@dcu.ie)
 :::
-
----
-
-## Conclusion {data-background-color="#4A6E8A"}
-
-<p class="r-fit-text">Summary & Future Directions</p>
-
-::: footer
-**Speaker Notes (10 mins):** Let's wrap up with the key takeaways and where this research could go next.
-:::
-
----
-
-## Summary & Key Takeaways
-
-1.  We can build a **"meta-classifier"** to assess the correctness of a primary emotion recognition model.
-2.  The **dynamics of facial expressions**, not just static images, are key to this assessment.
-3.  **Time series features** (like entropy, stability, lumpiness) provide a powerful, quantitative way to capture these dynamics.
-4.  **R and its ecosystem** (`tidyverse`, `tsfeatures`, `caret`) are exceptionally well-suited for this entire workflow.
-
-::: footer
-**Speaker Notes:** So, to summarize. We've shown that it's feasible to create a second-level model that acts as a check on a first-level emotion classifier. The secret sauce is to analyze the temporal dynamics of the facial expressions using time series features. And R provides a fantastic, open-source environment to do this from start to finish.
-:::
-
----
-
-## Future Directions
-
-- **More Sophisticated Models:** Explore LSTMs or Transformers that can learn temporal patterns directly, without manual feature engineering.
-- **Multimodal Analysis:** Fuse facial data with voice intonation, galvanic skin response, or heart rate for a more robust prediction.
-- **Personalization:** Build models that adapt to an individual's unique way of expressing emotions.
-- **Real-time Implementation:** Optimize the pipeline to provide a live "confidence score" for emotion recognition systems.
-
-::: footer
-**Speaker Notes:** This work opens up many exciting avenues. We could use more complex deep learning models to learn the features automatically. Even better, we could add more data streams—what is the person's tone of voice saying? What is their heart rate? Combining these modalities would create a much more holistic and accurate system.
-:::
-
----
-
-## Thank You
-
-**Questions?**
-
-**Contact:** you@yourinstitution.edu
-
-**Code & Slides:** github.com/your-repo/emotion-dynamics
-
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-
-::: footer
-Thank you for your attention.
-:::
-```css
-/* styles.css */
-.reveal .slide-content {
-  font-family: 'Atkinson Hyperlegible', sans-serif;
-}
-
-.reveal h1, .reveal h2, .reveal h3 {
-  font-family: 'Montserrat', sans-serif;
-  color: #2c3e50;
-}
-
-.reveal .footer {
-  position: absolute;
-  bottom: 1em;
-  left: 1em;
-  font-size: 0.5em;
-  color: #7f8c8d;
-  background-color: rgba(255, 255, 255, 0.7);
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.reveal code {
-  font-family: 'Fira Code', monospace;
-  background: #fdf6e3;
-  padding: 2px 4px;
-  border-radius: 4px;
-}
-
-.reveal .slide-background-content {
-    filter: brightness(0.9) saturate(0.8);
-}
