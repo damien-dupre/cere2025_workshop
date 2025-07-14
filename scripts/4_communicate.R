@@ -11,7 +11,6 @@ df_congruency |>
     fill = method,
     shape = method
   ) +
-  ggstats::geom_stripped_cols() +
   geom_errorbar(width = 0, position = position_dodge(width = 0.8)) +
   geom_point(stroke = 0, size = 4, position = position_dodge(width = 0.8)) +
   scale_y_continuous("Congruence between instruction and recognition", limits = c(0, 1), labels = scales::percent) +
