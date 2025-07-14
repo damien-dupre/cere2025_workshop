@@ -5,7 +5,8 @@ format:
   revealjs:
     theme: [theme/metropolis.scss]
     slide-number: true
-    logo: "img/logo.jpg"
+    logo: img/logo.png
+    footer: Damien Dupré - CERE2025
 
 execute: 
   echo: true
@@ -40,14 +41,14 @@ In this workshop, we will explore how to process and analyse such data using R.
 
 ## Case study
 
-- **78 participants** (20 male, 58 female) have been recorded while they watched **six videos/tasks** designed to elicit specific emotions.
+- **78 participants** (20 males, 58 females) have been recorded while they were asked to express **six emotions** and constitute de [BU-4DFE database (Yin et al., 2008)](https://www.cs.binghamton.edu/~lijun/Research/3DFE/3DFE_Analysis.html). 
 
 - A total of 467 video recordings were obtained (one participant completed only five videos) and analysed using **Affectiva’s Affedex** Emotion Recognition system integrated within the iMotions Lab software.
 
-- Each video frame was scored for the **likelihood of expressing** the following emotions: Happiness, Surprise, Disgust, Fear, Sadness, and Anger, with values ranging from 0 (not recognised) to 1 (fully recognised).
+- Each video frame was scored for the **likelihood of expressing** the following emotions: Happiness, Surprise, Disgust, Fear, Sadness, and Anger, with values from 0 (not recognised) to 1 (fully recognised).
 
 :::{.center}
-**Did the participants express the emotion intended by the elicitation tasks?**
+**Did the participants express the emotion intended by the instructions?**
 :::
 
 ## Objectives
@@ -92,7 +93,9 @@ The free tier on Posit Cloud provides only 25 hours of usage per month.
 
 1.	In your browser, sign up or log in at <https://posit.cloud>
 2.	Click on **New Project** and choose **New Project from Git Repository**
-3.	Enter https://github.com/damien-dupre/cere2025_workshop when prompted for the repository URL
+3.	Enter `https://github.com/damien-dupre/cere2025_workshop` when prompted for the repository URL
+
+![](img/posit_cloud.png)
 
 ```{r}
 #| echo: false
@@ -102,11 +105,15 @@ countdown(minutes = 2, warn_when = 60)
 
 ## Ressources
 
-- All 467 csv files are in the data folder
-- All R scripts used are in the scripts folder
-- Slides and supplementary material are in the output folder
+:::: {layout="[1,1]"}
+::: {#first-column}
+- All 467 csv files are in the `data/` folder
+- All R scripts used are in the `scripts/` folder
+- Slides and supplementary material are in the `output/` folder
+:::
 
-[]{.underline}
+::: {#second-column}
+[`cere2025_workshop/` folder structure]{.underline}
 
     cere2025_workshop/
     ├── data/
@@ -114,33 +121,46 @@ countdown(minutes = 2, warn_when = 60)
     │   ├── F001_Disgust.csv
     │   └── ...
     ├── scripts/
-    │   └── data_processing.R
+    │   ├── import_tidy_transform.R
+    │   ├── visualise.R
+    │   ├── model.R
+    │   └── communicate.R
     └── output/
         ├── slides.html
         ├── slides.qmd
-        └── slides_files/
+        ├── slides_files/
+        └── ...
         
+:::
+::::
+
 # 1. Import, Tidy and Transform
 
 ## Import
 
-Start by installing and loading the necessary packages:
+Start by installing the necessary packages:
 
 ```{r}
-# Install Packages (to run only once) ------------------------------------------
-# install.packages("tidyverse")
-# install.packages("fs")
-# install.packages("here")
-# install.packages("report")
+#| eval: false
 
-# Load Packages ----------------------------------------------------------------
+install.packages("tidyverse") # Metapackage for data transformation and visualisation
+install.packages("fs") # Manipulate files' and folders' path
+install.packages("here") # Rebase the origin of the repository regardless of the system
+install.packages("report") # Standardize the output of statistical models
+```
+
+And load them: 
+
+```{r}
 library(tidyverse)
-library(fs)
-library(here)
+library(fs) 
+library(here) 
 library(report)
 ```
 
-We will combine all csv files into a single table:
+## Import
+
+We will combine all .csv files into a single data frame:
 
 ```{r}
 df <- 
@@ -150,12 +170,10 @@ df <-
 # write_csv(df, "data_all.csv")
 ```
 
-## Import
-
-Preview the df object:
+Preview the 5 first rows of the `df` object:
 
 ```{r}
-head(df, 10)
+head(df, 5)
 ```
 
 ## Tidy and Transform
@@ -165,8 +183,7 @@ We will update the source variable to retain only the file name:
 ```{r}
 df_tidy <- df |> 
   mutate(file = source |> path_file() |> path_ext_remove(), .keep	= "unused") |> 
-  separate(col = file, into = c("ppt", "elicitation"), sep = "_", remove = FALSE) |> 
-  mutate(elicitation = elicitation |> tolower() |> str_replace("happy", "happiness"))
+  separate(col = file, into = c("ppt", "instruction"), sep = "_", remove = FALSE)
 ```
 
 Importantly, we need to transform this wide dataframe (i.e., all emotion variables are side by side) to a long dataframe (i.e., all emotion variables are below each others and only one "value" variable is used):
@@ -182,17 +199,25 @@ df_tidy_long <- df_tidy |>
 
 ## Tidy and Transform
 
-Let's have a look at the `df` object again:
+The `df_tidy_long` object has `r nrow(df_tidy_long)` rows, let's look at its first rows:
 
 ```{r}
-head(df, 10)
+head(df_tidy_long, 10)
 ```
 
 ## 🛠️ Now, it’s Your Turn!
 
-1. Open “import_tidy_transform.R” in the scripts folder
-2. Select all the lines and click on the Run icon or CTRL + ENTER (Windows) / Command + ENTER (Mac)
-3. Observe your `df_tidy_long` object from the Environment pane
+1. Open “1_import_tidy_transform.R” in the `scripts/` folder
+2. Select all the lines and click on the **Run** icon (top left)
+3. Observe your `df_tidy_long` object
+
+::: {.callout-note}
+Instead of clicking on the Run you can also press:
+
+- <kbd>CTRL</kbd> + <kbd>ENTER</kbd> (Windows)
+- <kbd>Command</kbd> + <kbd>ENTER</kbd> (Mac)
+:::
+
 
 ```{r}
 #| echo: false
@@ -207,12 +232,21 @@ countdown(minutes = 2, warn_when = 60)
 Let’s visualise a single video:
 
 ```{r}
+#| output-location: column
+#| results: hold
+#| fig-width: 5
+#| fig-height: 6
+
 list_file <- unique(df_tidy_long$file)
 
 df_tidy_long |> 
   filter(file == list_file[3]) |> 
   ggplot() +
-  aes(x = frame, y = recognition, colour = emotion) +
+  aes(
+    x = frame, 
+    y = recognition, 
+    colour = emotion
+  ) +
   geom_line(linewidth = 2) +
   theme_bw() +
   theme(legend.position = "bottom") +
@@ -220,30 +254,53 @@ df_tidy_long |>
   scale_color_brewer(palette = "Dark2")
 ```
 
-## All Recordings
+## All Recordings for 1 Task
 
-Let’s visualise recordings for each elicitation tasks:
+Let’s visualise recordings for one instruction task:
 
 ```{r}
-list_elicitation <- unique(df_tidy_long$elicitation)
+#| output-location: column
+#| results: hold
+#| fig-width: 5
+#| fig-height: 6
+
+list_task <- unique(df_tidy_long$instruction)
 
 df_tidy_long |> 
-  filter(elicitation == list_elicitation[3]) |> 
+  filter(instruction == list_task[3]) |> 
   ggplot() +
-  aes(x = frame, y = recognition, group = ppt, colour = emotion) +
-  geom_line(linewidth = 1) +
+  aes(
+    x = frame, 
+    y = recognition, 
+    group = ppt, 
+    colour = emotion
+  ) +
+  geom_line(linewidth = 1, alpha = 0.2) +
   facet_grid(emotion ~ ., switch = "x") +
   theme_bw() +
   theme(legend.position = "bottom") +
-  scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.5, 1)) +
-  scale_color_brewer(palette = "Dark2")
+  scale_y_continuous(breaks = c(0, 0.5, 1)) +
+  scale_color_brewer(palette = "Dark2") +
+  guides(colour = "none")
 ```
 
 ## 🛠️ Now, it’s Your Turn!
 
-1. Open “visualise.R” in the scripts folder
-2. Change the index numbers in the first two lines to explore different data
-3. Select all the lines and click on the Run icon or CTRL + ENTER (Windows) / Command + ENTER (Mac)
+1. Open “2_visualise.R” in the `scripts/` folder
+2. **Change the index numbers** in the first two lines to explore different data
+
+```{r}
+#| eval: false
+
+recording_n <- 3 # replace 3 by a number between 1 and 467
+instruction_n <- 3 # replace 3 by a number between 1 and 6
+```
+
+3. Select all lines and click **Run** (or use keyboard shortcuts)
+
+::: {.callout-warning}
+The code in the script “1_import_tidy_transform.R” must have been ran before running the code in the script “2_visualise.R”.
+:::
 
 ```{r}
 #| echo: false
@@ -255,11 +312,11 @@ countdown(minutes = 2, warn_when = 60)
 
 ## Model
 
-For each video, we aim to identify the expressed emotion using three distinct methods (as described in Dupré, 2021):
+For each video, we aim to identify the expressed emotion using **three distinct methods** (as described in Dupré, 2021):
 
-1.	Matching Score: Emotion with the highest single value
-2.	Confidence Score: Emotion with the highest average value
-3.	Frame Score: Emotion most frequently recognised across frames
+1. **Matching Score**: Emotion with the highest single value
+2. **Confidence Score**: Emotion with the highest average value
+3. **Frame Score**: Emotion most frequently recognised across frames
 
 ## Model
 
@@ -277,11 +334,11 @@ However, some cases are returning different results:
 
 ## Disclaimer
 
-These methods all have their pros and cons. For example, Confidence Score and Frame Score might be more robust to artefacts.
+Each of these methods has its **advantages and disadvantages**. For instance, Confidence Score and Frame Score may offer greater robustness against artefacts.
 
-Additional calculation methods not presented here might be possible as well.
+There may also be **alternative calculation methods** not included in this discussion.
 
-Finally, the categorisation of a whole video to a single label is a reductive approach that can be debated but it is not the topic of the workshop.
+Lastly, assigning a single label to an entire video is a **simplification that could be questioned**, though this issue lies outside the scope of the workshop.
 
 ## Matching Score
 
@@ -289,14 +346,16 @@ The emotion recognised is the one having the highest value in the recording
 
 ```{r}
 df_score_matching <- df_tidy_long |> 
-  select(file, frame, emotion, recognition) |> 
+# keep only the frame with the highest value in each ties
   group_by(file) |> 
   filter(recognition == max(recognition)) |> 
+# in case of ties, label the emotions "undetermined" and remove duplicates
   add_count() |> 
   mutate(emotion = case_when(n != 1 ~ "undetermined", .default = emotion)) |> 
   select(file, emotion) |> 
   distinct() |> 
-  mutate(score = "matching")
+# label the method
+  mutate(method = "matching score")
 ```
 
 ## Confidence Score
@@ -305,15 +364,17 @@ The emotion recognised is the one with the highest average along all the recordi
 
 ```{r}
 df_score_confidence <- df_tidy_long |> 
-  select(file, frame, emotion, recognition) |> 
+# calculate the average value for each emotion in each file and keep the highest
   group_by(file, emotion) |> 
   summarise(mean_emotion = mean(recognition, na.rm = TRUE)) |> 
   slice_max(mean_emotion) |> 
+# in case of ties, label the emotions "undetermined" and remove duplicates
   add_count() |> 
   mutate(emotion = case_when(n != 1 ~ "undetermined", .default = emotion)) |> 
   select(file, emotion) |> 
   distinct() |> 
-  mutate(score = "confidence")
+# label the method
+  mutate(method = "confidence score")
 ```
 
 ## Frame Score
@@ -322,27 +383,26 @@ Identify the emotion recognised in each frame (max value) and to count how many 
 
 ```{r}
 df_score_frame <- df_tidy_long |> 
-  select(file, frame, emotion, recognition) |> 
-  group_by(file, frame) |> 
+  group_by(file, frame) |> # in each file, for each frame, find the highest value
   slice_max(recognition) |> 
-  add_count(name = "n_frame") |> 
+  add_count(name = "n_frame") |> # in case of ties, label the emotions "undetermined" and remove duplicates
   mutate(emotion = case_when(n_frame != 1 ~ "undetermined", .default = emotion)) |> 
   select(file, frame, emotion) |> 
   distinct() |> 
-  group_by(file, emotion) |> 
+  group_by(file, emotion) |> # count the occurrence of each emotion across all frames and select highest
   count() |> 
   group_by(file) |> 
   slice_max(n) |> 
-  add_count(name = "n_file") |> 
+  add_count(name = "n_file") |> # in case of ties, label the emotions "undetermined" and remove duplicates
   mutate(emotion = case_when(n_file != 1 ~ "undetermined", .default = emotion)) |> 
   select(file, emotion) |> 
   distinct() |> 
-  mutate(score = "frame")
+  mutate(method = "frame score") # label the method
 ```
 
 ## Comparing Scores
 
-Now a label has been assigned to each recorded video using 4 different calculation methods, we can compare these score with the "ground truth" (i.e., the type of emotion supposedly elicited). 
+Now a label has been assigned to each recorded video using 3 different calculation methods, we can **compare these score with the "ground truth"** (i.e., the type of emotion supposedly elicited). 
 
 ```{r}
 df_congruency <- 
@@ -351,115 +411,185 @@ df_congruency <-
     df_score_confidence,
     df_score_frame
   ) |> 
-  separate(col = file, into = c("ppt", "elicitation"), sep = "_", remove = FALSE) |> 
+  separate(col = file, into = c("ppt", "instruction"), sep = "_", remove = FALSE) |> 
   mutate(
-    elicitation = elicitation |> tolower() |> 
-      str_replace_all(c("happy" = "happiness", "sad" = "sadness", "angry" = "anger")),
-    congruency = if_else(elicitation == emotion, 1, 0)
+    instruction = instruction |> 
+           tolower() |> 
+           str_replace_all(c("happy" = "happiness", "sad" = "sadness", "angry" = "anger")),
+    congruency = if_else(instruction == emotion, 1, 0)
   )
 ```
 
 ## Comparing Scores
 
+A **Generalised Linear Model** using a binomial distribution of the residuals (logistic regression) is fitted to identify the effects of calculation methods, instruction tasks, and the interaction between both.
+
+To obtain their omnibus effect estimates, an **analysis of variance** is used on the GLM model.
+
 ```{r}
 model <- df_congruency |> 
   glm(
-    congruency ~ score*elicitation, 
+    congruency ~ method*instruction, 
     data = _, 
     family = binomial
   ) |> 
   aov()
 ```
 
+## 🛠️ Now, it’s Your Turn!
+
+1. Open “3_model.R” in the `scripts/` folder
+2. Select all lines and click **Run** (or use keyboard shortcuts)
+
+::: {.callout-warning}
+The code in the script “1_import_tidy_transform.R” must have been ran before running the code in the script “3_model.R”.
+:::
+
+```{r}
+#| echo: false
+
+countdown(minutes = 2, warn_when = 60)
+```
+
 # 4. Communicate
 
 ## Effects Visualisation
 
+Let's calculate the average congruency by instruction task and by method with a basic visualisation:
+
 ```{r}
+#| output-location: column
+#| results: hold
+#| fig-width: 5
+#| fig-height: 6
+
 df_congruency |> 
-  group_by(score, elicitation) |> 
+  group_by(method, instruction) |> 
   summarise(mean_se(congruency)) |> 
   ggplot() + 
   aes(
-    x = elicitation,
+    x = instruction,
     y = y,
     ymin = ymin,
     ymax = ymax,
-    fill = score,
-    shape = score
+    fill = method,
+    shape = method
   ) +
   geom_errorbar(position = position_dodge(width = 0.8)) +
-  geom_point(size = 4, position = position_dodge(width = 0.8))
+  geom_point(
+    size = 4, 
+    position = position_dodge(width = 0.8)
+  ) +
+  theme_bw() +
+  theme(legend.position = "bottom")
 ```
 
 ## Effects Visualisation
 
+Here is the same visualisation but with more customisations:
+
 ```{r}
+#| output-location: column
+#| results: hold
+#| fig-width: 5
+#| fig-height: 6
+
 df_congruency |> 
-  group_by(score, elicitation) |> 
+  group_by(method, instruction) |> 
   summarise(mean_se(congruency)) |> 
   ggplot() + 
   aes(
-    x = fct_reorder(elicitation, y, .fun = "mean"),
+    x = fct_reorder(instruction, y, .fun = "mean"),
     y = y,
     ymin = ymin,
     ymax = ymax,
-    fill = score,
-    shape = score
+    fill = method,
+    shape = method
   ) +
   ggstats::geom_stripped_cols() +
   geom_errorbar(width = 0, position = position_dodge(width = 0.8)) +
   geom_point(stroke = 0, size = 4, position = position_dodge(width = 0.8)) +
-  scale_y_continuous("Congruence between elicitation and recognition", limits = c(0, 1), labels = scales::percent) +
+  scale_y_continuous("Congruence between instruction and recognition", limits = c(0, 1), labels = scales::percent) +
   scale_x_discrete("") +
   scale_fill_brewer("Method", palette = "Dark2") +
   scale_shape_manual("Method", values = c(21, 22, 23, 24)) +
+  guides(
+    shape = guide_legend(reverse = TRUE, position = "inside"),
+    fill = guide_legend(reverse = TRUE, position = "inside")
+  ) +
   theme_bw() +
   theme(
-    text = element_text(size = 15),
-    axis.text.x = element_text(size = 16),
-    axis.text.y = element_text(size = 16),
+    text = element_text(size = 12),
+    axis.text.x = element_text(size = 14),
+    axis.text.y = element_text(size = 14),
     axis.line.y = element_blank(),
-    legend.title.align = 0.5,
-    legend.position = c(0.85, 0.2),
+    legend.title = element_text(hjust = 0.5),
+    legend.position.inside = c(0.8, 0.2),
     legend.background = element_rect(fill = "grey80")
   ) +
-  coord_flip(ylim = c(0, 1)) +
-  guides(
-    shape = guide_legend(reverse = TRUE),
-    fill = guide_legend(reverse = TRUE)
-  )
+  coord_flip(ylim = c(0, 1)) 
 ```
 
 ## Effects Statistics
 
 ```{r}
-report(model)
+#| output: asis
+
+cat(report(model))
 ```
+
+## 🛠️ Now, it’s Your Turn!
+
+1. Open “4_communicate.R” in the `scripts/` folder
+2. Select all lines and click **Run** (or use keyboard shortcuts)
+
+::: {.callout-warning}
+The code in the scripts “1_import_tidy_transform.R” and “3_model.R” must have been ran before running the code in the script “4_communicate.R”.
+:::
+
+```{r}
+#| echo: false
+
+countdown(minutes = 2, warn_when = 60)
+```
+
 
 # 5. Discussion and Conclusion
 
 ## On Technology
 
-- Tidyverse and the native |> pipe operator make code more readable and teachable
-- Benefits include increased scientific transparency and reproducibility
-- Being open-source encourages improved practices
+- {Tidyverse} and the native `|>` pipe operator make **code more readable** and teachable
+- Increased **scientific transparency and reproducibility**
+- Being open-source **encourages improved practices and sharing methods**
+- **Easier to spot mistakes** in the data processing
 
 ## On Theory
 
-- We cannot confirm whether the participants felt the emotion elicited, only that it may or may not have been expressed (Tcherkassof and Dupré, 2020)
-- A lack of emotional expression does not necessarily indicate an issue with the participant, it could be due to recognition system limitations
+- Each participant was instructed by a psychologist to gradually portray the six basic emotions in distinct sequences, **their expression are not genuine** 
+- Low congruence scores does not necessarily indicate an issue with the participants, it could be due to **recognition system limitations**
+
+:::: {layout="[2,1]"}
+::: {#first-column}
+![](https://github.com/damien-dupre/pint_of_science/blob/main/img/interstellar_affdex.gif?raw=true)
+:::
+
+::: {#second-column}
+[[Extract from a video posted by Affectiva on YouTube in 2016 to demonstrate the capabilities of their Affdex system.](https://www.youtube.com/watch?v=NsmAldoVwDs)]{style="font-size: 70%"}
+:::
+::::
 
 ## On Methods
 
-- All three methods compare emotions relative to others. A low score might still be the highest and thus chosen
-- A minimum threshold should be introduced for more valid recognition
+- All three methods use a **relative indicator rather than an absolute threshold** to identify the emotion recognised:
 
-- Method performance differs:
+  - A low score might still be the highest and thus chosen
+  - A minimum threshold should be introduced for more valid recognition
+  
+- **Method performance differs**:
 
-  - Matching Score struggles with prolonged emotions like happiness and disgust
-	- Frame Score underperforms for surprise, sadness, anger, and fear
-	- Confidence Score, based on average values, appears the most robust overall
+  - Matching Score struggles with prolonged expressions like happiness and disgust
+  - Frame Score underperforms for surprise, sadness, anger, and fear
+	- Confidence Score, based on average values, appears the most robust method overall
 	
 ## {background="#43464B"}
 

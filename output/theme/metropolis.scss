@@ -135,6 +135,7 @@ h2::after.title {
 	background-color: #fafafa;
 	border-radius: 12px;
 	padding: 5px;
+	top: 720px !important;
 }
 
 // inline
@@ -227,3 +228,10 @@ kbd {
     padding: 2px 4px;
     white-space: nowrap;
    }
+   
+.reveal .slide-logo {
+  max-height: 2em !important;
+  position: fixed;
+  top: 0;
+  right: 0;
+}

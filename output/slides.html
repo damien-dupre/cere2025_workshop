@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-b7936cba5084a122c277561cd88dfb39.css">
+  <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-a11f37d7ee0e7ad8ac5806fba01e869a.css">
   <link href="slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -220,12 +220,12 @@ Damien Dupré
 <section id="case-study" class="slide level2">
 <h2>Case study</h2>
 <ul>
-<li><p><strong>78 participants</strong> (20 male, 58 female) have been recorded while they watched <strong>six videos/tasks</strong> designed to elicit specific emotions.</p></li>
+<li><p><strong>78 participants</strong> (20 males, 58 females) have been recorded while they were asked to express <strong>six emotions</strong> and constitute de <a href="https://www.cs.binghamton.edu/~lijun/Research/3DFE/3DFE_Analysis.html">BU-4DFE database (Yin et al., 2008)</a>.</p></li>
 <li><p>A total of 467 video recordings were obtained (one participant completed only five videos) and analysed using <strong>Affectiva’s Affedex</strong> Emotion Recognition system integrated within the iMotions Lab software.</p></li>
-<li><p>Each video frame was scored for the <strong>likelihood of expressing</strong> the following emotions: Happiness, Surprise, Disgust, Fear, Sadness, and Anger, with values ranging from 0 (not recognised) to 1 (fully recognised).</p></li>
+<li><p>Each video frame was scored for the <strong>likelihood of expressing</strong> the following emotions: Happiness, Surprise, Disgust, Fear, Sadness, and Anger, with values from 0 (not recognised) to 1 (fully recognised).</p></li>
 </ul>
 <div class="center">
-<p><strong>Did the participants express the emotion intended by the elicitation tasks?</strong></p>
+<p><strong>Did the participants express the emotion intended by the instructions?</strong></p>
 </div>
 </section>
 <section id="objectives" class="slide level2">
@@ -245,11 +245,11 @@ Damien Dupré
 </section>
 <section id="r-not-python" class="slide level2">
 <h2>R not Python</h2>
-<p>Although there is little difference between R and Python for research purposes, R is considered easier to read and write (in my view).</p>
+<p>There is little difference between R and Python for research purposes, but <strong>R is, in my view, easier to read and write</strong>.</p>
 <p>This workshop assumes some familiarity with R, particularly:</p>
 <ul>
-<li>The “tidyverse” coding style</li>
-<li>Use of the native pipe operator <code>|&gt;</code> rather than the <code>%&gt;%</code> pipe from the {magrittr} package</li>
+<li>The <strong>“tidyverse”</strong> coding style</li>
+<li>Use of the <strong>native pipe</strong> operator <code>|&gt;</code> rather than the <code>%&gt;%</code> pipe from the {magrittr} package</li>
 </ul>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -268,7 +268,7 @@ Damien Dupré
 </section>
 <section id="using-rstudio-in-posit-cloud" class="slide level2">
 <h2>Using RStudio in Posit Cloud</h2>
-<p>Although you may use your own R installation, there are excellent and free cloud-based options:</p>
+<p>Although you may use your own R installation, there are excellent and <strong>free cloud-based options</strong>:</p>
 <ul>
 <li>Google Colab with Jupyter Notebook</li>
 <li>GitHub Codespaces with Visual Studio Code</li>
@@ -283,7 +283,7 @@ Damien Dupré
 <p><strong>Warning</strong></p>
 </div>
 <div class="callout-content">
-<p>The free tier on Posit Cloud provides 25 hours of usage per month.</p>
+<p>The free tier on Posit Cloud provides only 25 hours of usage per month.</p>
 </div>
 </div>
 </div>
@@ -291,13 +291,14 @@ Damien Dupré
 <section id="now-its-your-turn" class="slide level2">
 <h2>🛠️ Now, it’s Your Turn!</h2>
 <ol type="1">
-<li>In your browser, sign up or log in at https://posit.cloud</li>
-<li>Click on New Project and choose New Project from Git Repository</li>
-<li>Enter https://github.com/damien-dupre/cere2025_workshop when prompted for the repository URL</li>
+<li>In your browser, sign up or log in at <a href="https://posit.cloud" class="uri">https://posit.cloud</a></li>
+<li>Click on <strong>New Project</strong> and choose <strong>New Project from Git Repository</strong></li>
+<li>Enter <code>https://github.com/damien-dupre/cere2025_workshop</code> when prompted for the repository URL</li>
 </ol>
-<div class="cell">
+
+<img data-src="img/posit_cloud.png" class="r-stretch"><div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_6dd07780" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_850cd1bf" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -306,24 +307,36 @@ Damien Dupré
 </section>
 <section id="ressources" class="slide level2">
 <h2>Ressources</h2>
+<div class="quarto-layout-panel" data-layout="[1,1]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <ul>
-<li>All 467 csv files are in the data folder</li>
-<li>All R scripts used are in the scripts folder</li>
-<li>Slides and supplementary material are in the output folder</li>
+<li>All 467 csv files are in the <code>data/</code> folder</li>
+<li>All R scripts used are in the <code>scripts/</code> folder</li>
+<li>Slides and supplementary material are in the <code>output/</code> folder</li>
 </ul>
-<p><u></u></p>
+</div>
+<div id="second-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><u><code>cere2025_workshop/</code> folder structure</u></p>
 <pre><code>cere2025_workshop/
 ├── data/
 │&nbsp;&nbsp; ├── F001_Angry.csv
 │&nbsp;&nbsp; ├── F001_Disgust.csv
 │&nbsp;&nbsp; └── ...
 ├── scripts/
-│&nbsp;&nbsp; └── data_processing.R
+│&nbsp;&nbsp; ├── import_tidy_transform.R
+│&nbsp;&nbsp; ├── visualise.R
+│&nbsp;&nbsp; ├── model.R
+│&nbsp;&nbsp; └── communicate.R
 └── output/
     ├── slides.html
     ├── slides.qmd
-    └── slides_files/
+    ├── slides_files/
+    └── ...
     </code></pre>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="import-tidy-and-transform" class="title-slide slide level1 center">
@@ -332,48 +345,43 @@ Damien Dupré
 </section>
 <section id="import" class="slide level2">
 <h2>Import</h2>
-<p>Start by installing and loading the necessary packages:</p>
+<p>Start by installing the necessary packages:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Install Packages (to run only once) ------------------------------------------</span></span>
-<span id="cb2-2"><a href=""></a><span class="co"># install.packages("tidyverse")</span></span>
-<span id="cb2-3"><a href=""></a><span class="co"># install.packages("fs")</span></span>
-<span id="cb2-4"><a href=""></a><span class="co"># install.packages("here")</span></span>
-<span id="cb2-5"><a href=""></a><span class="co"># install.packages("report")</span></span>
-<span id="cb2-6"><a href=""></a></span>
-<span id="cb2-7"><a href=""></a><span class="co"># Load Packages ----------------------------------------------------------------</span></span>
-<span id="cb2-8"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-9"><a href=""></a><span class="fu">library</span>(fs)</span>
-<span id="cb2-10"><a href=""></a><span class="fu">library</span>(here)</span>
-<span id="cb2-11"><a href=""></a><span class="fu">library</span>(report)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>) <span class="co"># Metapackage for data transformation and visualisation</span></span>
+<span id="cb2-2"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"fs"</span>) <span class="co"># Manipulate files' and folders' path</span></span>
+<span id="cb2-3"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"here"</span>) <span class="co"># Rebase the origin of the repository regardless of the system</span></span>
+<span id="cb2-4"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"report"</span>) <span class="co"># Standardize the output of statistical models</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We will combine all csv files into a single table:</p>
+<p>And load them:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>df <span class="ot">&lt;-</span> </span>
-<span id="cb3-2"><a href=""></a>  <span class="fu">dir_ls</span>(<span class="at">path =</span> <span class="fu">here</span>(<span class="st">"data"</span>), <span class="at">glob =</span> <span class="st">"*.csv"</span>) <span class="sc">|&gt;</span> <span class="co"># list all csv files in folder "data"</span></span>
-<span id="cb3-3"><a href=""></a>  <span class="fu">map_dfr</span>(read_csv, <span class="at">.id =</span> <span class="st">"source"</span>) <span class="co"># read the files and merge them one after the other</span></span>
-<span id="cb3-4"><a href=""></a></span>
-<span id="cb3-5"><a href=""></a><span class="co"># write_csv(df, "data_all.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href=""></a><span class="fu">library</span>(fs) </span>
+<span id="cb3-3"><a href=""></a><span class="fu">library</span>(here) </span>
+<span id="cb3-4"><a href=""></a><span class="fu">library</span>(report)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="import-1" class="slide level2">
 <h2>Import</h2>
-<p>Preview the df object:</p>
+<p>We will combine all .csv files into a single data frame:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">head</span>(df, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>df <span class="ot">&lt;-</span> </span>
+<span id="cb4-2"><a href=""></a>  <span class="fu">dir_ls</span>(<span class="at">path =</span> <span class="fu">here</span>(<span class="st">"data"</span>), <span class="at">glob =</span> <span class="st">"*.csv"</span>) <span class="sc">|&gt;</span> <span class="co"># list all csv files in folder "data"</span></span>
+<span id="cb4-3"><a href=""></a>  <span class="fu">map_dfr</span>(read_csv, <span class="at">.id =</span> <span class="st">"source"</span>) <span class="co"># read the files and merge them one after the other</span></span>
+<span id="cb4-4"><a href=""></a></span>
+<span id="cb4-5"><a href=""></a><span class="co"># write_csv(df, "data_all.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Preview the 5 first rows of the <code>df</code> object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">head</span>(df, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 8
-   source               frame   anger disgust    fear happiness sadness surprise
-   &lt;chr&gt;                &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
- 1 /Users/damienhome/D…     1 2   e-5 0.00426 4.6 e-5 0.000018  2.4 e-4  0.00194
- 2 /Users/damienhome/D…     2 2.00e-5 0.00426 4.60e-5 0.0000180 2.39e-4  0.00194
- 3 /Users/damienhome/D…     3 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
- 4 /Users/damienhome/D…     4 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
- 5 /Users/damienhome/D…     5 2.00e-5 0.00426 4.60e-5 0.0000180 2.39e-4  0.00194
- 6 /Users/damienhome/D…     6 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
- 7 /Users/damienhome/D…     7 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
- 8 /Users/damienhome/D…     8 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
- 9 /Users/damienhome/D…     9 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00193
-10 /Users/damienhome/D…    10 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00193</code></pre>
+<pre><code># A tibble: 5 × 8
+  source                frame   anger disgust    fear happiness sadness surprise
+  &lt;chr&gt;                 &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+1 /Users/damienhome/Dr…     1 2   e-5 0.00426 4.6 e-5 0.000018  2.4 e-4  0.00194
+2 /Users/damienhome/Dr…     2 2.00e-5 0.00426 4.60e-5 0.0000180 2.39e-4  0.00194
+3 /Users/damienhome/Dr…     3 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
+4 /Users/damienhome/Dr…     4 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
+5 /Users/damienhome/Dr…     5 2.00e-5 0.00426 4.60e-5 0.0000180 2.39e-4  0.00194</code></pre>
 </div>
 </div>
 </section>
@@ -381,53 +389,69 @@ Damien Dupré
 <h2>Tidy and Transform</h2>
 <p>We will update the source variable to retain only the file name:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>df_tidy <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
-<span id="cb6-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">file =</span> source <span class="sc">|&gt;</span> <span class="fu">path_file</span>() <span class="sc">|&gt;</span> <span class="fu">path_ext_remove</span>(), <span class="at">.keep   =</span> <span class="st">"unused"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-3"><a href=""></a>  <span class="fu">separate</span>(<span class="at">col =</span> file, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"ppt"</span>, <span class="st">"elicitation"</span>), <span class="at">sep =</span> <span class="st">"_"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">elicitation =</span> elicitation <span class="sc">|&gt;</span> <span class="fu">tolower</span>() <span class="sc">|&gt;</span> <span class="fu">str_replace</span>(<span class="st">"happy"</span>, <span class="st">"happiness"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>df_tidy <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">file =</span> source <span class="sc">|&gt;</span> <span class="fu">path_file</span>() <span class="sc">|&gt;</span> <span class="fu">path_ext_remove</span>(), <span class="at">.keep   =</span> <span class="st">"unused"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href=""></a>  <span class="fu">separate</span>(<span class="at">col =</span> file, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"ppt"</span>, <span class="st">"instruction"</span>), <span class="at">sep =</span> <span class="st">"_"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Importantly, we need to transform this wide dataframe (i.e., all emotion variables are side by side) to a long dataframe (i.e., all emotion variables are below each others and only one “value” variable is used):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>df_tidy_long <span class="ot">&lt;-</span> df_tidy <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a href=""></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb7-3"><a href=""></a>    <span class="at">cols =</span> <span class="fu">c</span>(anger, disgust, fear, happiness, sadness, surprise),</span>
-<span id="cb7-4"><a href=""></a>    <span class="at">names_to =</span> <span class="st">"emotion"</span>,</span>
-<span id="cb7-5"><a href=""></a>    <span class="at">values_to =</span> <span class="st">"recognition"</span></span>
-<span id="cb7-6"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>df_tidy_long <span class="ot">&lt;-</span> df_tidy <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href=""></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb8-3"><a href=""></a>    <span class="at">cols =</span> <span class="fu">c</span>(anger, disgust, fear, happiness, sadness, surprise),</span>
+<span id="cb8-4"><a href=""></a>    <span class="at">names_to =</span> <span class="st">"emotion"</span>,</span>
+<span id="cb8-5"><a href=""></a>    <span class="at">values_to =</span> <span class="st">"recognition"</span></span>
+<span id="cb8-6"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="tidy-and-transform-1" class="slide level2">
 <h2>Tidy and Transform</h2>
-<p>Let’s have a look at the <code>df</code> object again:</p>
+<p>The <code>df_tidy_long</code> object has 280200 rows, let’s look at its first rows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">head</span>(df, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">head</span>(df_tidy_long, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 8
-   source               frame   anger disgust    fear happiness sadness surprise
-   &lt;chr&gt;                &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
- 1 /Users/damienhome/D…     1 2   e-5 0.00426 4.6 e-5 0.000018  2.4 e-4  0.00194
- 2 /Users/damienhome/D…     2 2.00e-5 0.00426 4.60e-5 0.0000180 2.39e-4  0.00194
- 3 /Users/damienhome/D…     3 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
- 4 /Users/damienhome/D…     4 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
- 5 /Users/damienhome/D…     5 2.00e-5 0.00426 4.60e-5 0.0000180 2.39e-4  0.00194
- 6 /Users/damienhome/D…     6 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
- 7 /Users/damienhome/D…     7 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
- 8 /Users/damienhome/D…     8 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00194
- 9 /Users/damienhome/D…     9 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00193
-10 /Users/damienhome/D…    10 2.00e-5 0.00426 4.60e-5 0.0000180 2.40e-4  0.00193</code></pre>
+<pre><code># A tibble: 10 × 6
+   frame file       ppt   instruction emotion   recognition
+   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;           &lt;dbl&gt;
+ 1     1 F001_Angry F001  Angry       anger       0.00002  
+ 2     1 F001_Angry F001  Angry       disgust     0.00426  
+ 3     1 F001_Angry F001  Angry       fear        0.000046 
+ 4     1 F001_Angry F001  Angry       happiness   0.000018 
+ 5     1 F001_Angry F001  Angry       sadness     0.00024  
+ 6     1 F001_Angry F001  Angry       surprise    0.00194  
+ 7     2 F001_Angry F001  Angry       anger       0.0000200
+ 8     2 F001_Angry F001  Angry       disgust     0.00426  
+ 9     2 F001_Angry F001  Angry       fear        0.0000460
+10     2 F001_Angry F001  Angry       happiness   0.0000180</code></pre>
 </div>
 </div>
 </section>
 <section id="now-its-your-turn-1" class="slide level2">
 <h2>🛠️ Now, it’s Your Turn!</h2>
 <ol type="1">
-<li>Open “import_tidy_transform.R” in the scripts folder</li>
-<li>Select all the lines and click on the Run icon or CTRL + ENTER (Windows) / Command + ENTER (Mac)</li>
-<li>Observe your <code>df_tidy_long</code> object from the Environment pane</li>
+<li>Open “1_import_tidy_transform.R” in the <code>scripts/</code> folder</li>
+<li>Select all the lines and click on the <strong>Run</strong> icon (top left)</li>
+<li>Observe your <code>df_tidy_long</code> object</li>
 </ol>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Instead of clicking on the Run you can also press:</p>
+<ul>
+<li><kbd>CTRL</kbd> + <kbd>ENTER</kbd> (Windows)</li>
+<li><kbd>Command</kbd> + <kbd>ENTER</kbd> (Mac)</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_45d382b6" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_015cad72" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -442,50 +466,95 @@ Damien Dupré
 <section id="single-recording" class="slide level2">
 <h2>Single Recording</h2>
 <p>Let’s visualise a single video:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>list_file <span class="ot">&lt;-</span> <span class="fu">unique</span>(df_tidy_long<span class="sc">$</span>file)</span>
-<span id="cb10-2"><a href=""></a></span>
-<span id="cb10-3"><a href=""></a>df_tidy_long <span class="sc">|&gt;</span> </span>
-<span id="cb10-4"><a href=""></a>  <span class="fu">filter</span>(file <span class="sc">==</span> list_file[<span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
-<span id="cb10-5"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb10-6"><a href=""></a>  <span class="fu">aes</span>(<span class="at">x =</span> frame, <span class="at">y =</span> recognition, <span class="at">colour =</span> emotion) <span class="sc">+</span></span>
-<span id="cb10-7"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb10-8"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb10-9"><a href=""></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
-<span id="cb10-10"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb10-11"><a href=""></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
-<section id="all-recordings" class="slide level2">
-<h2>All Recordings</h2>
-<p>Let’s visualise recordings for each elicitation tasks:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>list_elicitation <span class="ot">&lt;-</span> <span class="fu">unique</span>(df_tidy_long<span class="sc">$</span>elicitation)</span>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>list_file <span class="ot">&lt;-</span> <span class="fu">unique</span>(df_tidy_long<span class="sc">$</span>file)</span>
 <span id="cb11-2"><a href=""></a></span>
 <span id="cb11-3"><a href=""></a>df_tidy_long <span class="sc">|&gt;</span> </span>
-<span id="cb11-4"><a href=""></a>  <span class="fu">filter</span>(elicitation <span class="sc">==</span> list_elicitation[<span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href=""></a>  <span class="fu">filter</span>(file <span class="sc">==</span> list_file[<span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
 <span id="cb11-5"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb11-6"><a href=""></a>  <span class="fu">aes</span>(<span class="at">x =</span> frame, <span class="at">y =</span> recognition, <span class="at">group =</span> ppt, <span class="at">colour =</span> emotion) <span class="sc">+</span></span>
-<span id="cb11-7"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb11-8"><a href=""></a>  <span class="fu">facet_grid</span>(emotion <span class="sc">~</span> ., <span class="at">switch =</span> <span class="st">"x"</span>) <span class="sc">+</span></span>
-<span id="cb11-9"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb11-10"><a href=""></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
-<span id="cb11-11"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb11-12"><a href=""></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<span id="cb11-6"><a href=""></a>  <span class="fu">aes</span>(</span>
+<span id="cb11-7"><a href=""></a>    <span class="at">x =</span> frame, </span>
+<span id="cb11-8"><a href=""></a>    <span class="at">y =</span> recognition, </span>
+<span id="cb11-9"><a href=""></a>    <span class="at">colour =</span> emotion</span>
+<span id="cb11-10"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb11-11"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb11-12"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb11-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
+<span id="cb11-14"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb11-15"><a href=""></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="480"></p>
+</figure>
 </div>
-<img data-src="slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+</div>
+</div></div>
+</section>
+<section id="all-recordings-for-1-task" class="slide level2">
+<h2>All Recordings for 1 Task</h2>
+<p>Let’s visualise recordings for one instruction task:</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>list_task <span class="ot">&lt;-</span> <span class="fu">unique</span>(df_tidy_long<span class="sc">$</span>instruction)</span>
+<span id="cb12-2"><a href=""></a></span>
+<span id="cb12-3"><a href=""></a>df_tidy_long <span class="sc">|&gt;</span> </span>
+<span id="cb12-4"><a href=""></a>  <span class="fu">filter</span>(instruction <span class="sc">==</span> list_task[<span class="dv">3</span>]) <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-6"><a href=""></a>  <span class="fu">aes</span>(</span>
+<span id="cb12-7"><a href=""></a>    <span class="at">x =</span> frame, </span>
+<span id="cb12-8"><a href=""></a>    <span class="at">y =</span> recognition, </span>
+<span id="cb12-9"><a href=""></a>    <span class="at">group =</span> ppt, </span>
+<span id="cb12-10"><a href=""></a>    <span class="at">colour =</span> emotion</span>
+<span id="cb12-11"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb12-12"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb12-13"><a href=""></a>  <span class="fu">facet_grid</span>(emotion <span class="sc">~</span> ., <span class="at">switch =</span> <span class="st">"x"</span>) <span class="sc">+</span></span>
+<span id="cb12-14"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb12-15"><a href=""></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span></span>
+<span id="cb12-16"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb12-17"><a href=""></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb12-18"><a href=""></a>  <span class="fu">guides</span>(<span class="at">colour =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
 <section id="now-its-your-turn-2" class="slide level2">
 <h2>🛠️ Now, it’s Your Turn!</h2>
 <ol type="1">
-<li>Open “visualise.R” in the scripts folder</li>
-<li>Change the index numbers in the first two lines to explore different data</li>
-<li>Select all the lines and click on the Run icon or CTRL + ENTER (Windows) / Command + ENTER (Mac)</li>
+<li>Open “2_visualise.R” in the <code>scripts/</code> folder</li>
+<li><strong>Change the index numbers</strong> in the first two lines to explore different data</li>
 </ol>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>recording_n <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># replace 3 by a number between 1 and 467</span></span>
+<span id="cb13-2"><a href=""></a>instruction_n <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># replace 3 by a number between 1 and 6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Select all lines and click <strong>Run</strong> (or use keyboard shortcuts)</li>
+</ol>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>The code in the script “1_import_tidy_transform.R” must have been ran before running the code in the script “2_visualise.R”.</p>
+</div>
+</div>
+</div>
+<div class="cell">
 <div class="cell-output-display">
-<div class="countdown" id="timer_dbd468c7" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_f81ed5c4" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -499,11 +568,11 @@ Damien Dupré
 </section>
 <section id="model-1" class="slide level2">
 <h2>Model</h2>
-<p>For each video, we aim to identify the expressed emotion using three distinct methods (as described in Dupré, 2021):</p>
+<p>For each video, we aim to identify the expressed emotion using <strong>three distinct methods</strong> (as described in Dupré, 2021):</p>
 <ol type="1">
-<li>Matching Score: Emotion with the highest single value</li>
-<li>Confidence Score: Emotion with the highest average value</li>
-<li>Frame Score: Emotion most frequently recognised across frames</li>
+<li><strong>Matching Score</strong>: Emotion with the highest single value</li>
+<li><strong>Confidence Score</strong>: Emotion with the highest average value</li>
+<li><strong>Frame Score</strong>: Emotion most frequently recognised across frames</li>
 </ol>
 </section>
 <section id="model-2" class="slide level2">
@@ -519,92 +588,126 @@ Damien Dupré
 </section>
 <section id="disclaimer" class="slide level2">
 <h2>Disclaimer</h2>
-<p>These methods all have their pros and cons. For example, Confidence Score and Frame Score might be more robust to artefacts.</p>
-<p>Additional calculation methods not presented here might be possible as well.</p>
-<p>Finally, the categorisation of a whole video to a single label is a reductive approach that can be debated but it is not the topic of the workshop.</p>
+<p>Each of these methods has its <strong>advantages and disadvantages</strong>. For instance, Confidence Score and Frame Score may offer greater robustness against artefacts.</p>
+<p>There may also be <strong>alternative calculation methods</strong> not included in this discussion.</p>
+<p>Lastly, assigning a single label to an entire video is a <strong>simplification that could be questioned</strong>, though this issue lies outside the scope of the workshop.</p>
 </section>
 <section id="matching-score" class="slide level2">
 <h2>Matching Score</h2>
 <p>The emotion recognised is the one having the highest value in the recording</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>df_score_matching <span class="ot">&lt;-</span> df_tidy_long <span class="sc">|&gt;</span> </span>
-<span id="cb12-2"><a href=""></a>  <span class="fu">select</span>(file, frame, emotion, recognition) <span class="sc">|&gt;</span> </span>
-<span id="cb12-3"><a href=""></a>  <span class="fu">group_by</span>(file) <span class="sc">|&gt;</span> </span>
-<span id="cb12-4"><a href=""></a>  <span class="fu">filter</span>(recognition <span class="sc">==</span> <span class="fu">max</span>(recognition)) <span class="sc">|&gt;</span> </span>
-<span id="cb12-5"><a href=""></a>  <span class="fu">add_count</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb12-6"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">emotion =</span> <span class="fu">case_when</span>(n <span class="sc">!=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"undetermined"</span>, <span class="at">.default =</span> emotion)) <span class="sc">|&gt;</span> </span>
-<span id="cb12-7"><a href=""></a>  <span class="fu">select</span>(file, emotion) <span class="sc">|&gt;</span> </span>
-<span id="cb12-8"><a href=""></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb12-9"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">score =</span> <span class="st">"matching"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>df_score_matching <span class="ot">&lt;-</span> df_tidy_long <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href=""></a><span class="co"># keep only the frame with the highest value in each ties</span></span>
+<span id="cb14-3"><a href=""></a>  <span class="fu">group_by</span>(file) <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a href=""></a>  <span class="fu">filter</span>(recognition <span class="sc">==</span> <span class="fu">max</span>(recognition)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-5"><a href=""></a><span class="co"># in case of ties, label the emotions "undetermined" and remove duplicates</span></span>
+<span id="cb14-6"><a href=""></a>  <span class="fu">add_count</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb14-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">emotion =</span> <span class="fu">case_when</span>(n <span class="sc">!=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"undetermined"</span>, <span class="at">.default =</span> emotion)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-8"><a href=""></a>  <span class="fu">select</span>(file, emotion) <span class="sc">|&gt;</span> </span>
+<span id="cb14-9"><a href=""></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb14-10"><a href=""></a><span class="co"># label the method</span></span>
+<span id="cb14-11"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"matching score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="confidence-score" class="slide level2">
 <h2>Confidence Score</h2>
 <p>The emotion recognised is the one with the highest average along all the recording among the possible emotions</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>df_score_confidence <span class="ot">&lt;-</span> df_tidy_long <span class="sc">|&gt;</span> </span>
-<span id="cb13-2"><a href=""></a>  <span class="fu">select</span>(file, frame, emotion, recognition) <span class="sc">|&gt;</span> </span>
-<span id="cb13-3"><a href=""></a>  <span class="fu">group_by</span>(file, emotion) <span class="sc">|&gt;</span> </span>
-<span id="cb13-4"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mean_emotion =</span> <span class="fu">mean</span>(recognition, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb13-5"><a href=""></a>  <span class="fu">slice_max</span>(mean_emotion) <span class="sc">|&gt;</span> </span>
-<span id="cb13-6"><a href=""></a>  <span class="fu">add_count</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb13-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">emotion =</span> <span class="fu">case_when</span>(n <span class="sc">!=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"undetermined"</span>, <span class="at">.default =</span> emotion)) <span class="sc">|&gt;</span> </span>
-<span id="cb13-8"><a href=""></a>  <span class="fu">select</span>(file, emotion) <span class="sc">|&gt;</span> </span>
-<span id="cb13-9"><a href=""></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb13-10"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">score =</span> <span class="st">"confidence"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>df_score_confidence <span class="ot">&lt;-</span> df_tidy_long <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href=""></a><span class="co"># calculate the average value for each emotion in each file and keep the highest</span></span>
+<span id="cb15-3"><a href=""></a>  <span class="fu">group_by</span>(file, emotion) <span class="sc">|&gt;</span> </span>
+<span id="cb15-4"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mean_emotion =</span> <span class="fu">mean</span>(recognition, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb15-5"><a href=""></a>  <span class="fu">slice_max</span>(mean_emotion) <span class="sc">|&gt;</span> </span>
+<span id="cb15-6"><a href=""></a><span class="co"># in case of ties, label the emotions "undetermined" and remove duplicates</span></span>
+<span id="cb15-7"><a href=""></a>  <span class="fu">add_count</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb15-8"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">emotion =</span> <span class="fu">case_when</span>(n <span class="sc">!=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"undetermined"</span>, <span class="at">.default =</span> emotion)) <span class="sc">|&gt;</span> </span>
+<span id="cb15-9"><a href=""></a>  <span class="fu">select</span>(file, emotion) <span class="sc">|&gt;</span> </span>
+<span id="cb15-10"><a href=""></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb15-11"><a href=""></a><span class="co"># label the method</span></span>
+<span id="cb15-12"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"confidence score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="frame-score" class="slide level2">
 <h2>Frame Score</h2>
 <p>Identify the emotion recognised in each frame (max value) and to count how many time each have been recognised in a video</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>df_score_frame <span class="ot">&lt;-</span> df_tidy_long <span class="sc">|&gt;</span> </span>
-<span id="cb14-2"><a href=""></a>  <span class="fu">select</span>(file, frame, emotion, recognition) <span class="sc">|&gt;</span> </span>
-<span id="cb14-3"><a href=""></a>  <span class="fu">group_by</span>(file, frame) <span class="sc">|&gt;</span> </span>
-<span id="cb14-4"><a href=""></a>  <span class="fu">slice_max</span>(recognition) <span class="sc">|&gt;</span> </span>
-<span id="cb14-5"><a href=""></a>  <span class="fu">add_count</span>(<span class="at">name =</span> <span class="st">"n_frame"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb14-6"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">emotion =</span> <span class="fu">case_when</span>(n_frame <span class="sc">!=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"undetermined"</span>, <span class="at">.default =</span> emotion)) <span class="sc">|&gt;</span> </span>
-<span id="cb14-7"><a href=""></a>  <span class="fu">select</span>(file, frame, emotion) <span class="sc">|&gt;</span> </span>
-<span id="cb14-8"><a href=""></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb14-9"><a href=""></a>  <span class="fu">group_by</span>(file, emotion) <span class="sc">|&gt;</span> </span>
-<span id="cb14-10"><a href=""></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb14-11"><a href=""></a>  <span class="fu">group_by</span>(file) <span class="sc">|&gt;</span> </span>
-<span id="cb14-12"><a href=""></a>  <span class="fu">slice_max</span>(n) <span class="sc">|&gt;</span> </span>
-<span id="cb14-13"><a href=""></a>  <span class="fu">add_count</span>(<span class="at">name =</span> <span class="st">"n_file"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb14-14"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">emotion =</span> <span class="fu">case_when</span>(n_file <span class="sc">!=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"undetermined"</span>, <span class="at">.default =</span> emotion)) <span class="sc">|&gt;</span> </span>
-<span id="cb14-15"><a href=""></a>  <span class="fu">select</span>(file, emotion) <span class="sc">|&gt;</span> </span>
-<span id="cb14-16"><a href=""></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb14-17"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">score =</span> <span class="st">"frame"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>df_score_frame <span class="ot">&lt;-</span> df_tidy_long <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href=""></a>  <span class="fu">group_by</span>(file, frame) <span class="sc">|&gt;</span> <span class="co"># in each file, for each frame, find the highest value</span></span>
+<span id="cb16-3"><a href=""></a>  <span class="fu">slice_max</span>(recognition) <span class="sc">|&gt;</span> </span>
+<span id="cb16-4"><a href=""></a>  <span class="fu">add_count</span>(<span class="at">name =</span> <span class="st">"n_frame"</span>) <span class="sc">|&gt;</span> <span class="co"># in case of ties, label the emotions "undetermined" and remove duplicates</span></span>
+<span id="cb16-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">emotion =</span> <span class="fu">case_when</span>(n_frame <span class="sc">!=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"undetermined"</span>, <span class="at">.default =</span> emotion)) <span class="sc">|&gt;</span> </span>
+<span id="cb16-6"><a href=""></a>  <span class="fu">select</span>(file, frame, emotion) <span class="sc">|&gt;</span> </span>
+<span id="cb16-7"><a href=""></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb16-8"><a href=""></a>  <span class="fu">group_by</span>(file, emotion) <span class="sc">|&gt;</span> <span class="co"># count the occurrence of each emotion across all frames and select highest</span></span>
+<span id="cb16-9"><a href=""></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb16-10"><a href=""></a>  <span class="fu">group_by</span>(file) <span class="sc">|&gt;</span> </span>
+<span id="cb16-11"><a href=""></a>  <span class="fu">slice_max</span>(n) <span class="sc">|&gt;</span> </span>
+<span id="cb16-12"><a href=""></a>  <span class="fu">add_count</span>(<span class="at">name =</span> <span class="st">"n_file"</span>) <span class="sc">|&gt;</span> <span class="co"># in case of ties, label the emotions "undetermined" and remove duplicates</span></span>
+<span id="cb16-13"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">emotion =</span> <span class="fu">case_when</span>(n_file <span class="sc">!=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"undetermined"</span>, <span class="at">.default =</span> emotion)) <span class="sc">|&gt;</span> </span>
+<span id="cb16-14"><a href=""></a>  <span class="fu">select</span>(file, emotion) <span class="sc">|&gt;</span> </span>
+<span id="cb16-15"><a href=""></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb16-16"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">method =</span> <span class="st">"frame score"</span>) <span class="co"># label the method</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="comparing-scores" class="slide level2">
 <h2>Comparing Scores</h2>
-<p>Now a label has been assigned to each recorded video using 4 different calculation methods, we can compare these score with the “ground truth” (i.e., the type of emotion supposedly elicited).</p>
+<p>Now a label has been assigned to each recorded video using 3 different calculation methods, we can <strong>compare these score with the “ground truth”</strong> (i.e., the type of emotion supposedly elicited).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>df_congruency <span class="ot">&lt;-</span> </span>
-<span id="cb15-2"><a href=""></a>  <span class="fu">bind_rows</span>(</span>
-<span id="cb15-3"><a href=""></a>    df_score_matching, </span>
-<span id="cb15-4"><a href=""></a>    df_score_confidence,</span>
-<span id="cb15-5"><a href=""></a>    df_score_frame</span>
-<span id="cb15-6"><a href=""></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb15-7"><a href=""></a>  <span class="fu">separate</span>(<span class="at">col =</span> file, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"ppt"</span>, <span class="st">"elicitation"</span>), <span class="at">sep =</span> <span class="st">"_"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb15-8"><a href=""></a>  <span class="fu">mutate</span>(</span>
-<span id="cb15-9"><a href=""></a>    <span class="at">elicitation =</span> elicitation <span class="sc">|&gt;</span> <span class="fu">tolower</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb15-10"><a href=""></a>      <span class="fu">str_replace_all</span>(<span class="fu">c</span>(<span class="st">"happy"</span> <span class="ot">=</span> <span class="st">"happiness"</span>, <span class="st">"sad"</span> <span class="ot">=</span> <span class="st">"sadness"</span>, <span class="st">"angry"</span> <span class="ot">=</span> <span class="st">"anger"</span>)),</span>
-<span id="cb15-11"><a href=""></a>    <span class="at">congruency =</span> <span class="fu">if_else</span>(elicitation <span class="sc">==</span> emotion, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb15-12"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>df_congruency <span class="ot">&lt;-</span> </span>
+<span id="cb17-2"><a href=""></a>  <span class="fu">bind_rows</span>(</span>
+<span id="cb17-3"><a href=""></a>    df_score_matching, </span>
+<span id="cb17-4"><a href=""></a>    df_score_confidence,</span>
+<span id="cb17-5"><a href=""></a>    df_score_frame</span>
+<span id="cb17-6"><a href=""></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb17-7"><a href=""></a>  <span class="fu">separate</span>(<span class="at">col =</span> file, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"ppt"</span>, <span class="st">"instruction"</span>), <span class="at">sep =</span> <span class="st">"_"</span>, <span class="at">remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb17-8"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-9"><a href=""></a>    <span class="at">instruction =</span> instruction <span class="sc">|&gt;</span> </span>
+<span id="cb17-10"><a href=""></a>           <span class="fu">tolower</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb17-11"><a href=""></a>           <span class="fu">str_replace_all</span>(<span class="fu">c</span>(<span class="st">"happy"</span> <span class="ot">=</span> <span class="st">"happiness"</span>, <span class="st">"sad"</span> <span class="ot">=</span> <span class="st">"sadness"</span>, <span class="st">"angry"</span> <span class="ot">=</span> <span class="st">"anger"</span>)),</span>
+<span id="cb17-12"><a href=""></a>    <span class="at">congruency =</span> <span class="fu">if_else</span>(instruction <span class="sc">==</span> emotion, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb17-13"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="comparing-scores-1" class="slide level2">
 <h2>Comparing Scores</h2>
+<p>A <strong>Generalised Linear Model</strong> using a binomial distribution of the residuals (logistic regression) is fitted to identify the effects of calculation methods, instruction tasks, and the interaction between both.</p>
+<p>To obtain their omnibus effect estimates, an <strong>analysis of variance</strong> is used on the GLM model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>model <span class="ot">&lt;-</span> df_congruency <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href=""></a>  <span class="fu">glm</span>(</span>
-<span id="cb16-3"><a href=""></a>    congruency <span class="sc">~</span> score<span class="sc">*</span>elicitation, </span>
-<span id="cb16-4"><a href=""></a>    <span class="at">data =</span> _, </span>
-<span id="cb16-5"><a href=""></a>    <span class="at">family =</span> binomial</span>
-<span id="cb16-6"><a href=""></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb16-7"><a href=""></a>  <span class="fu">aov</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>model <span class="ot">&lt;-</span> df_congruency <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href=""></a>  <span class="fu">glm</span>(</span>
+<span id="cb18-3"><a href=""></a>    congruency <span class="sc">~</span> method<span class="sc">*</span>instruction, </span>
+<span id="cb18-4"><a href=""></a>    <span class="at">data =</span> _, </span>
+<span id="cb18-5"><a href=""></a>    <span class="at">family =</span> binomial</span>
+<span id="cb18-6"><a href=""></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb18-7"><a href=""></a>  <span class="fu">aov</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="now-its-your-turn-3" class="slide level2">
+<h2>🛠️ Now, it’s Your Turn!</h2>
+<ol type="1">
+<li>Open “3_model.R” in the <code>scripts/</code> folder</li>
+<li>Select all lines and click <strong>Run</strong> (or use keyboard shortcuts)</li>
+</ol>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>The code in the script “1_import_tidy_transform.R” must have been ran before running the code in the script “3_model.R”.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="countdown" id="timer_a19ae307" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+</div>
 </div>
 </section></section>
 <section>
@@ -614,80 +717,123 @@ Damien Dupré
 </section>
 <section id="effects-visualisation" class="slide level2">
 <h2>Effects Visualisation</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>df_congruency <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a href=""></a>  <span class="fu">group_by</span>(score, elicitation) <span class="sc">|&gt;</span> </span>
-<span id="cb17-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="fu">mean_se</span>(congruency)) <span class="sc">|&gt;</span> </span>
-<span id="cb17-4"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb17-5"><a href=""></a>  <span class="fu">aes</span>(</span>
-<span id="cb17-6"><a href=""></a>    <span class="at">x =</span> elicitation,</span>
-<span id="cb17-7"><a href=""></a>    <span class="at">y =</span> y,</span>
-<span id="cb17-8"><a href=""></a>    <span class="at">ymin =</span> ymin,</span>
-<span id="cb17-9"><a href=""></a>    <span class="at">ymax =</span> ymax,</span>
-<span id="cb17-10"><a href=""></a>    <span class="at">fill =</span> score,</span>
-<span id="cb17-11"><a href=""></a>    <span class="at">shape =</span> score</span>
-<span id="cb17-12"><a href=""></a>  ) <span class="sc">+</span></span>
-<span id="cb17-13"><a href=""></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>)) <span class="sc">+</span></span>
-<span id="cb17-14"><a href=""></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<p>Let’s calculate the average congruency by instruction task and by method with a basic visualisation:</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>df_congruency <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href=""></a>  <span class="fu">group_by</span>(method, instruction) <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="fu">mean_se</span>(congruency)) <span class="sc">|&gt;</span> </span>
+<span id="cb19-4"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb19-5"><a href=""></a>  <span class="fu">aes</span>(</span>
+<span id="cb19-6"><a href=""></a>    <span class="at">x =</span> instruction,</span>
+<span id="cb19-7"><a href=""></a>    <span class="at">y =</span> y,</span>
+<span id="cb19-8"><a href=""></a>    <span class="at">ymin =</span> ymin,</span>
+<span id="cb19-9"><a href=""></a>    <span class="at">ymax =</span> ymax,</span>
+<span id="cb19-10"><a href=""></a>    <span class="at">fill =</span> method,</span>
+<span id="cb19-11"><a href=""></a>    <span class="at">shape =</span> method</span>
+<span id="cb19-12"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb19-13"><a href=""></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb19-14"><a href=""></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb19-15"><a href=""></a>    <span class="at">size =</span> <span class="dv">4</span>, </span>
+<span id="cb19-16"><a href=""></a>    <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>)</span>
+<span id="cb19-17"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb19-18"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb19-19"><a href=""></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides_files/figure-revealjs/unnamed-chunk-20-1.png" width="480"></p>
+</figure>
 </div>
-<img data-src="slides_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
+</div>
+</div></div>
+</section>
 <section id="effects-visualisation-1" class="slide level2">
 <h2>Effects Visualisation</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>df_congruency <span class="sc">|&gt;</span> </span>
-<span id="cb18-2"><a href=""></a>  <span class="fu">group_by</span>(score, elicitation) <span class="sc">|&gt;</span> </span>
-<span id="cb18-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="fu">mean_se</span>(congruency)) <span class="sc">|&gt;</span> </span>
-<span id="cb18-4"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb18-5"><a href=""></a>  <span class="fu">aes</span>(</span>
-<span id="cb18-6"><a href=""></a>    <span class="at">x =</span> <span class="fu">fct_reorder</span>(elicitation, y, <span class="at">.fun =</span> <span class="st">"mean"</span>),</span>
-<span id="cb18-7"><a href=""></a>    <span class="at">y =</span> y,</span>
-<span id="cb18-8"><a href=""></a>    <span class="at">ymin =</span> ymin,</span>
-<span id="cb18-9"><a href=""></a>    <span class="at">ymax =</span> ymax,</span>
-<span id="cb18-10"><a href=""></a>    <span class="at">fill =</span> score,</span>
-<span id="cb18-11"><a href=""></a>    <span class="at">shape =</span> score</span>
-<span id="cb18-12"><a href=""></a>  ) <span class="sc">+</span></span>
-<span id="cb18-13"><a href=""></a>  ggstats<span class="sc">::</span><span class="fu">geom_stripped_cols</span>() <span class="sc">+</span></span>
-<span id="cb18-14"><a href=""></a>  <span class="fu">geom_errorbar</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>)) <span class="sc">+</span></span>
-<span id="cb18-15"><a href=""></a>  <span class="fu">geom_point</span>(<span class="at">stroke =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>)) <span class="sc">+</span></span>
-<span id="cb18-16"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Congruence between elicitation and recognition"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb18-17"><a href=""></a>  <span class="fu">scale_x_discrete</span>(<span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb18-18"><a href=""></a>  <span class="fu">scale_fill_brewer</span>(<span class="st">"Method"</span>, <span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb18-19"><a href=""></a>  <span class="fu">scale_shape_manual</span>(<span class="st">"Method"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">23</span>, <span class="dv">24</span>)) <span class="sc">+</span></span>
-<span id="cb18-20"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb18-21"><a href=""></a>  <span class="fu">theme</span>(</span>
-<span id="cb18-22"><a href=""></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>),</span>
-<span id="cb18-23"><a href=""></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
-<span id="cb18-24"><a href=""></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
-<span id="cb18-25"><a href=""></a>    <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb18-26"><a href=""></a>    <span class="at">legend.title.align =</span> <span class="fl">0.5</span>,</span>
-<span id="cb18-27"><a href=""></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.2</span>),</span>
-<span id="cb18-28"><a href=""></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"grey80"</span>)</span>
-<span id="cb18-29"><a href=""></a>  ) <span class="sc">+</span></span>
-<span id="cb18-30"><a href=""></a>  <span class="fu">coord_flip</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb18-31"><a href=""></a>  <span class="fu">guides</span>(</span>
-<span id="cb18-32"><a href=""></a>    <span class="at">shape =</span> <span class="fu">guide_legend</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb18-33"><a href=""></a>    <span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb18-34"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<p>Here is the same visualisation but with more customisations:</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>df_congruency <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href=""></a>  <span class="fu">group_by</span>(method, instruction) <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="fu">mean_se</span>(congruency)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-4"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb20-5"><a href=""></a>  <span class="fu">aes</span>(</span>
+<span id="cb20-6"><a href=""></a>    <span class="at">x =</span> <span class="fu">fct_reorder</span>(instruction, y, <span class="at">.fun =</span> <span class="st">"mean"</span>),</span>
+<span id="cb20-7"><a href=""></a>    <span class="at">y =</span> y,</span>
+<span id="cb20-8"><a href=""></a>    <span class="at">ymin =</span> ymin,</span>
+<span id="cb20-9"><a href=""></a>    <span class="at">ymax =</span> ymax,</span>
+<span id="cb20-10"><a href=""></a>    <span class="at">fill =</span> method,</span>
+<span id="cb20-11"><a href=""></a>    <span class="at">shape =</span> method</span>
+<span id="cb20-12"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb20-13"><a href=""></a>  ggstats<span class="sc">::</span><span class="fu">geom_stripped_cols</span>() <span class="sc">+</span></span>
+<span id="cb20-14"><a href=""></a>  <span class="fu">geom_errorbar</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb20-15"><a href=""></a>  <span class="fu">geom_point</span>(<span class="at">stroke =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb20-16"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="st">"Congruence between instruction and recognition"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb20-17"><a href=""></a>  <span class="fu">scale_x_discrete</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb20-18"><a href=""></a>  <span class="fu">scale_fill_brewer</span>(<span class="st">"Method"</span>, <span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb20-19"><a href=""></a>  <span class="fu">scale_shape_manual</span>(<span class="st">"Method"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">23</span>, <span class="dv">24</span>)) <span class="sc">+</span></span>
+<span id="cb20-20"><a href=""></a>  <span class="fu">guides</span>(</span>
+<span id="cb20-21"><a href=""></a>    <span class="at">shape =</span> <span class="fu">guide_legend</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>, <span class="at">position =</span> <span class="st">"inside"</span>),</span>
+<span id="cb20-22"><a href=""></a>    <span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">reverse =</span> <span class="cn">TRUE</span>, <span class="at">position =</span> <span class="st">"inside"</span>)</span>
+<span id="cb20-23"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb20-24"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb20-25"><a href=""></a>  <span class="fu">theme</span>(</span>
+<span id="cb20-26"><a href=""></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb20-27"><a href=""></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb20-28"><a href=""></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb20-29"><a href=""></a>    <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb20-30"><a href=""></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb20-31"><a href=""></a>    <span class="at">legend.position.inside =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.2</span>),</span>
+<span id="cb20-32"><a href=""></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"grey80"</span>)</span>
+<span id="cb20-33"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb20-34"><a href=""></a>  <span class="fu">coord_flip</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="slides_files/figure-revealjs/unnamed-chunk-21-1.png" width="480"></p>
+</figure>
 </div>
-<img data-src="slides_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
+</div>
+</div></div>
+</section>
 <section id="effects-statistics" class="slide level2">
 <h2>Effects Statistics</h2>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">cat</span>(<span class="fu">report</span>(model))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The ANOVA (formula: congruency ~ method * instruction) suggests that:</p>
+<ul>
+<li>The main effect of method is statistically significant and small (F(2, 1383) = 10.54, p &lt; .001; Eta2 (partial) = 0.02, 95% CI [5.64e-03, 1.00])</li>
+<li>The main effect of instruction is statistically significant and large (F(5, 1383) = 61.00, p &lt; .001; Eta2 (partial) = 0.18, 95% CI [0.15, 1.00])</li>
+<li>The interaction between method and instruction is statistically significant and small (F(10, 1383) = 8.16, p &lt; .001; Eta2 (partial) = 0.06, 95% CI [0.03, 1.00])</li>
+</ul>
+<p>Effect sizes were labelled following Field’s (2013) recommendations.</p>
+</section>
+<section id="now-its-your-turn-4" class="slide level2">
+<h2>🛠️ Now, it’s Your Turn!</h2>
+<ol type="1">
+<li>Open “4_communicate.R” in the <code>scripts/</code> folder</li>
+<li>Select all lines and click <strong>Run</strong> (or use keyboard shortcuts)</li>
+</ol>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>The code in the scripts “1_import_tidy_transform.R” and “3_model.R” must have been ran before running the code in the script “4_communicate.R”.</p>
+</div>
+</div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">report</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The ANOVA (formula: congruency ~ score * elicitation) suggests that:
-
-  - The main effect of score is statistically significant and small (F(2, 1383) =
-10.54, p &lt; .001; Eta2 (partial) = 0.02, 95% CI [5.64e-03, 1.00])
-  - The main effect of elicitation is statistically significant and large (F(5,
-1383) = 61.00, p &lt; .001; Eta2 (partial) = 0.18, 95% CI [0.15, 1.00])
-  - The interaction between score and elicitation is statistically significant
-and small (F(10, 1383) = 8.16, p &lt; .001; Eta2 (partial) = 0.06, 95% CI [0.03,
-1.00])
-
-Effect sizes were labelled following Field's (2013) recommendations.</code></pre>
+<div class="cell-output-display">
+<div class="countdown" id="timer_8f011b2c" data-warn-when="60" data-update-every="1" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">−</button><button class="countdown-bump-up">+</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 </div>
 </div>
 </section></section>
@@ -699,29 +845,43 @@ Effect sizes were labelled following Field's (2013) recommendations.</code></pre
 <section id="on-technology" class="slide level2">
 <h2>On Technology</h2>
 <ul>
-<li>Tidyverse and the native |&gt; pipe operator make code more readable and teachable</li>
-<li>Benefits include increased scientific transparency and reproducibility</li>
-<li>Being open-source encourages improved practices</li>
+<li>{Tidyverse} and the native <code>|&gt;</code> pipe operator make <strong>code more readable</strong> and teachable</li>
+<li>Increased <strong>scientific transparency and reproducibility</strong></li>
+<li>Being open-source <strong>encourages improved practices and sharing methods</strong></li>
+<li><strong>Easier to spot mistakes</strong> in the data processing</li>
 </ul>
 </section>
 <section id="on-theory" class="slide level2">
 <h2>On Theory</h2>
 <ul>
-<li>We cannot confirm whether the participants felt the emotion elicited, only that it may or may not have been expressed (Tcherkassof and Dupré, 2020)</li>
-<li>A lack of emotional expression does not necessarily indicate an issue with the participant, it could be due to recognition system limitations</li>
+<li>Each participant was instructed by a psychologist to gradually portray the six basic emotions in distinct sequences, <strong>their expression are not genuine</strong></li>
+<li>Low congruence scores does not necessarily indicate an issue with the participants, it could be due to <strong>recognition system limitations</strong></li>
 </ul>
+<div class="quarto-layout-panel" data-layout="[2,1]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 66.7%;justify-content: center;">
+<p><img data-src="https://github.com/damien-dupre/pint_of_science/blob/main/img/interstellar_affdex.gif?raw=true"></p>
+</div>
+<div id="second-column" class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<p><span style="font-size: 70%"><a href="https://www.youtube.com/watch?v=NsmAldoVwDs">Extract from a video posted by Affectiva on YouTube in 2016 to demonstrate the capabilities of their Affdex system.</a></span></p>
+</div>
+</div>
+</div>
 </section>
 <section id="on-methods" class="slide level2">
 <h2>On Methods</h2>
 <ul>
-<li><p>All three methods compare emotions relative to others. A low score might still be the highest and thus chosen</p></li>
-<li><p>A minimum threshold should be introduced for more valid recognition</p></li>
-<li><p>Method performance differs:</p>
+<li><p>All three methods use a <strong>relative indicator rather than an absolute threshold</strong> to identify the emotion recognised:</p>
 <ul>
-<li>Matching Score struggles with prolonged emotions like happiness and disgust
+<li>A low score might still be the highest and thus chosen</li>
+<li>A minimum threshold should be introduced for more valid recognition</li>
+</ul></li>
+<li><p><strong>Method performance differs</strong>:</p>
 <ul>
-<li>Frame Score underperforms for surprise, sadness, anger, and fear</li>
-<li>Confidence Score, based on average values, appears the most robust overall</li>
+<li>Matching Score struggles with prolonged expressions like happiness and disgust</li>
+<li>Frame Score underperforms for surprise, sadness, anger, and fear
+<ul>
+<li>Confidence Score, based on average values, appears the most robust method overall</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -751,9 +911,9 @@ img.circle {border-radius:50%;}
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="img/logo.jpg" class="slide-logo"></p>
+<p><img src="img/logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
-
+<p>Damien Dupré - CERE2025</p>
 </div>
 </div></div>
 
