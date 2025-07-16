@@ -1,5 +1,5 @@
 ---
-title: "Identifying Correct or Incorrect Emotion Recognition from Facial Expression Time Series using R"
+title: "Identifying Correct or Incorrect Emotion Recognition from Facial Expression Time Series using {{< fa brands r-project >}}"
 author: "Damien Dupré"
 format: 
   revealjs:
@@ -62,7 +62,7 @@ In this workshop, we will explore how to process and analyse such data using R.
 
 # Technological Choices
 
-## R not Python
+## {{< fa brands r-project >}} not {{< fa brands python >}}
 
 There is little difference between R and Python for research purposes, but **R is, in my view, easier to read and write**.
 
@@ -121,16 +121,15 @@ countdown(minutes = 2, warn_when = 60)
     │   ├── F001_Disgust.csv
     │   └── ...
     ├── scripts/
-    │   ├── import_tidy_transform.R
-    │   ├── visualise.R
-    │   ├── model.R
-    │   └── communicate.R
+    │   ├── 1_import_tidy_transform.R
+    │   ├── 2_visualise.R
+    │   ├── 3_model.R
+    │   └── 4_communicate.R
     └── output/
         ├── slides.html
         ├── slides.qmd
         ├── slides_files/
         └── ...
-        
 :::
 ::::
 
@@ -533,7 +532,14 @@ df_congruency |>
 ## Effects Statistics
 
 ```{r}
+#| eval: false
+
+report(model)
+```
+
+```{r}
 #| output: asis
+#| echo: false
 
 cat(report(model))
 ```
